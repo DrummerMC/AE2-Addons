@@ -76,6 +76,7 @@ public class GrindReactorBlockBase implements IGridBlock{
 
     @Override
     public void gridChanged() {
+    	
     }
 
     @Override

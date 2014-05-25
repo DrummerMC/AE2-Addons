@@ -25,7 +25,7 @@ public class ReactorBase extends MultiblockBase{
 	
 	@Override
 	public TileEntity createNewTileEntity(World world, int var2) {
-		return new TileReactorBase(!world.isRemote);
+		return new TileReactorBase();
 		
 	}
 	
@@ -34,29 +34,6 @@ public class ReactorBase extends MultiblockBase{
 		world.getTileEntity(x, y, z);
 	}
 	
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block p_149695_5_) {
-		if(!world.isRemote){
-			TileEntity n =world.getTileEntity(x, y+1, z);
-			TileEntity a = world.getTileEntity(x, y, z);
-			if((a!=null)&&(n!=null)){
-				if((a instanceof IGridHost)&&(n instanceof IGridHost)){
-					System.out.println("test");
-					IGridHost aa = (IGridHost) a;
-					IGridHost nn = (IGridHost) n;
-					IGridNode ab= aa.getGridNode(ForgeDirection.UP);
-					IGridNode nb= aa.getGridNode(ForgeDirection.DOWN);
-					
-					try {
-						
-						AEApi.instance().createGridConnection(ab, nb);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-
 
 	
 }

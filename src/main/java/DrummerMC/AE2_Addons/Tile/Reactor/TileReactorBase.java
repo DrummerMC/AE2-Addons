@@ -23,10 +23,10 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 	public IGridBlock gridBlock;
 	public IGridNode node = null;
 	
-	public TileReactorBase(boolean server){
+	public TileReactorBase(){
 		gridBlock = new GrindReactorBlockBase(this);
-		if(server)
-			node = AEApi.instance().createGridNode(gridBlock);
+		
+		
 	}
 	
 	protected double energy = 0D;
@@ -214,6 +214,12 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 
 	@Override
 	public IGridNode getGridNode(ForgeDirection dir) {
+		if(this.node == null){
+			if(!this.worldObj.isRemote){
+				node = AEApi.instance().createGridNode(gridBlock);
+				node.updateState();
+			}
+		}
 		return this.node;
 	}
 
