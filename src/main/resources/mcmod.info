@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ae2_addons",
+  "name": "AE2 Addons",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["DrummerMC"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
