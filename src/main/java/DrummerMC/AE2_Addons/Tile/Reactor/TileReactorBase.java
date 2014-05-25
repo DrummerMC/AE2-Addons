@@ -10,6 +10,7 @@ import appeng.api.networking.IGridNode;
 import appeng.api.networking.energy.IAEPowerStorage;
 import appeng.api.util.AECableType;
 import appeng.api.util.DimensionalCoord;
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -17,6 +18,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import DrummerMC.AE2_Addons.AE2_Addons;
 import DrummerMC.AE2_Addons.GrindReactorBlockBase;
 import DrummerMC.AE2_Addons.Tile.TileMultiblockBase;
+import DrummerMC.AE2_Addons.network.ReactorMultiblockUpdate;
 
 public class TileReactorBase extends TileMultiblockBase implements IAEPowerStorage, IGridHost{
 	
@@ -34,11 +36,11 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 	@Override
     public void updateEntity() {
         super.updateEntity();
-        if (!worldObj.isRemote) {
+        if (!this.worldObj.isRemote) {
             if (hasMaster()) {
                 if (isMaster()) {
                     if (checkMultiBlockForm()) {
-                        // Put stuff you want the multiblock to do here!
+ 
                     } else
                         resetStructure();
                 } else {
@@ -61,6 +63,7 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
                     if (tile != null && (tile instanceof TileReactorBase) && !((TileReactorBase)tile).hasMaster())
                         i++;
                 }
+        
         return i > 26;
     }
   
@@ -76,6 +79,11 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
                         ((TileReactorBase) tile).setIsMaster(master);
                     }
                 }
+        if(hasMaster&&isMaster){
+        	AE2_Addons.network.sendToDimension(new ReactorMultiblockUpdate(this.xCoord, this.yCoord, this.zCoord,
+        			this.getWorldObj().getWorldInfo().getWorldName()),
+        			this.getWorldObj().provider.dimensionId);
+        }
     }
   
     public void reset() {
@@ -104,11 +112,6 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
     @Override
     public void writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
-        data.setInteger("masterX", masterX);
-        data.setInteger("masterY", masterY);
-        data.setInteger("masterZ", masterZ);
-        data.setBoolean("hasMaster", hasMaster);
-        data.setBoolean("isMaster", isMaster);
         if (hasMaster() && isMaster()) {
         	data.setDouble("energy", this.energy);
         }
@@ -117,11 +120,6 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
     @Override
     public void readFromNBT(NBTTagCompound data) {
         super.readFromNBT(data);
-        masterX = data.getInteger("masterX");
-        masterY = data.getInteger("masterY");
-        masterZ = data.getInteger("masterZ");
-        hasMaster = data.getBoolean("hasMaster");
-        isMaster = data.getBoolean("isMaster");
         if (hasMaster() && isMaster()) {
         	if(data.hasKey("energy"))
         		this.energy = data.getDouble("energy");

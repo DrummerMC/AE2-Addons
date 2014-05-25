@@ -18,5 +18,9 @@ public class MultiblockBase extends BlockContainer {
 	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TileMultiblockBase();
 	}
+	
+	public boolean renderAsNormalBlock(){
+		return false;
+	}
 
 }
