@@ -50,22 +50,7 @@ public class ReactorMultiblockUpdate extends AbstractPacket {
 
 	@Override
 	public void handleClientSide(EntityPlayer player) {
-		if(this.worldName == player.worldObj.getWorldInfo().getWorldName()){
-			for (int x1 = x - 1; x1 < x + 2; x1++)
-	            for (int y1 = y - 1; y1 < y + 2; y1++)
-	                for (int z1 = z - 1; z1 < z + 2; z1++) {
-	                	TileEntity tile = player.worldObj.getTileEntity(x1, y1, z1);
-	                    boolean master = (x1 == x && y1 == y && z1 == z);
-	                    if (tile != null && (tile instanceof TileReactorBase)) {
-	                        ((TileReactorBase) tile).setMasterCoords(x, y, z);
-	                        ((TileReactorBase) tile).setHasMaster(true);
-	                        ((TileReactorBase) tile).setIsMaster(master);
-	                    }
-	                }
-			
-			
-			player.worldObj.markBlockRangeForRenderUpdate(x-1, y-1, z-1, x+1, y+1, z+1);
-		}
+		
 	}
 
 	@Override

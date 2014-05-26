@@ -1,157 +1,99 @@
 package DrummerMC.AE2_Addons.Tile;
 
+import DrummerMC.AE2_Addons.libs.erogenousbeef.core.multiblock.MultiblockControllerBase;
+import DrummerMC.AE2_Addons.libs.erogenousbeef.core.multiblock.rectangular.RectangularMultiblockTileEntityBase;
+import DrummerMC.AE2_Addons.libs.erogenousbeef.test.common.TestMultiblockController;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
-public class TileMultiblockBase extends TileEntity{
-	protected boolean hasMaster, isMaster;
-    protected int masterX, masterY, masterZ;
-  
-    @Override
-    public void updateEntity() {
-        super.updateEntity();
-        if (!worldObj.isRemote) {
-            if (hasMaster()) {
-                if (isMaster()) {
-                    if (checkMultiBlockForm()) {
-                    	
-                    	
-                    	
-                    } else
-                        resetStructure();
-                } else {
-                    if (checkForMaster())
-                        reset();
-                }
-            } else {
-                if (checkMultiBlockForm())
-                    setupStructure();
-            }
-        }
-    }
-     
-    public boolean checkMultiBlockForm() {
-        int i = 0;
-        for (int x = xCoord - 1; x < xCoord + 2; x++)
-            for (int y = yCoord; y < yCoord + 3; y++)
-                for (int z = zCoord - 1; z < zCoord + 2; z++) {
-                    TileEntity tile = worldObj.getTileEntity(x, y, z);
-                    if (tile != null && (tile instanceof TileMultiblockBase) && !((TileMultiblockBase)tile).hasMaster())
-                        i++;
-                }
-        return i > 25 && worldObj.isAirBlock(xCoord, yCoord + 1, zCoord);
-    }
-  
-    public void setupStructure() {
-        for (int x = xCoord - 1; x < xCoord + 2; x++)
-            for (int y = yCoord; y < yCoord + 3; y++)
-                for (int z = zCoord - 1; z < zCoord + 2; z++) {
-                	TileEntity tile = worldObj.getTileEntity(x, y, z);
-                    boolean master = (x == xCoord && y == yCoord && z == zCoord);
-                    if (tile != null && (tile instanceof TileMultiblockBase)) {
-                        ((TileMultiblockBase) tile).setMasterCoords(xCoord, yCoord, zCoord);
-                        ((TileMultiblockBase) tile).setHasMaster(true);
-                        ((TileMultiblockBase) tile).setIsMaster(master);
-                    }
-                }
-    }
-  
-    public void reset() {
-        masterX = 0;
-        masterY = 0;
-        masterZ = 0;
-        hasMaster = false;
-        isMaster = false;
-    }
-  
-    public boolean checkForMaster() {
-        TileEntity tile = worldObj.getTileEntity(masterX, masterY, masterZ);
-        return (tile != null && (tile instanceof TileMultiblockBase));
-    }
-     
-    public void resetStructure() {
-        for (int x = xCoord - 1; x < xCoord + 2; x++)
-            for (int y = yCoord; y < yCoord + 3; y++)
-                for (int z = zCoord - 1; z < zCoord + 2; z++) {
-                	TileEntity tile = worldObj.getTileEntity(x, y, z);
-                    if (tile != null && (tile instanceof TileMultiblockBase))
-                        ((TileMultiblockBase) tile).reset();
-                }
-    }
-  
-    @Override
-    public void writeToNBT(NBTTagCompound data) {
-        super.writeToNBT(data);
-        data.setInteger("masterX", masterX);
-        data.setInteger("masterY", masterY);
-        data.setInteger("masterZ", masterZ);
-        data.setBoolean("hasMaster", hasMaster);
-        data.setBoolean("isMaster", isMaster);
-        if (hasMaster() && isMaster()) {
-        }
-    }
- 
-    @Override
-    public void readFromNBT(NBTTagCompound data) {
-        super.readFromNBT(data);
-        masterX = data.getInteger("masterX");
-        masterY = data.getInteger("masterY");
-        masterZ = data.getInteger("masterZ");
-        hasMaster = data.getBoolean("hasMaster");
-        isMaster = data.getBoolean("isMaster");
-        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        if (hasMaster() && isMaster()) {
-        }
-    }
-  
-    public boolean hasMaster() {
-        return hasMaster;
-    }
-  
-    public boolean isMaster() {
-        return isMaster;
-    }
-  
-    public int getMasterX() {
-        return masterX;
-    }
-  
-    public int getMasterY() {
-        return masterY;
-    }
-  
-    public int getMasterZ() {
-        return masterZ;
-    }
-  
-    public void setHasMaster(boolean bool) {
-        hasMaster = bool;
-    }
-  
-    public void setIsMaster(boolean bool) {
-        isMaster = bool;
-    }
-  
-    public void setMasterCoords(int x, int y, int z) {
-        masterX = x;
-        masterY = y;
-        masterZ = z;
-    }
-    
-    @Override
-    public Packet getDescriptionPacket()
-    {
-    	NBTTagCompound nbtTag = new NBTTagCompound();
-        this.writeToNBT(nbtTag);
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, nbtTag);
-    }
-    
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
-    {
-    	this.readFromNBT(pkt.func_148857_g());
-    }
+public abstract class TileMultiblockBase extends RectangularMultiblockTileEntityBase{
+	
+	private MultiblockControllerBase controller = null;
+	
+	public TileMultiblockBase() {
+		super();
+		
+	}
+
+	public final void setController(MultiblockControllerBase controller){
+		this.controller = controller;
+		if(this.worldObj.isRemote){
+			this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			System.out.println(xCoord+" "+yCoord+" "+zCoord);
+		}
+	}
+	
+	public final boolean hasController(){
+		return (this.controller != null);
+	}
+	
+	public final MultiblockControllerBase getController(){
+		return this.controller;
+	}
+	
+	@Override
+	protected void encodeDescriptionPacket(NBTTagCompound packetData) {
+		super.encodeDescriptionPacket(packetData);
+		
+	}
+	
+	@Override
+	protected void decodeDescriptionPacket(NBTTagCompound packetData) {
+		super.decodeDescriptionPacket(packetData);
+		
+	}
+
+	@Override
+	public abstract MultiblockControllerBase createNewMultiblock();
+
+	///// Game logic methods. In a real game, do real stuff here.
+	
+	@Override
+	public void isGoodForFrame() {
+		
+	}
+
+	@Override
+	public void isGoodForSides() {
+		
+	}
+
+	@Override
+	public void isGoodForTop() {
+		
+	}
+
+	@Override
+	public void isGoodForBottom() {
+		
+	}
+
+	@Override
+	public void isGoodForInterior() {
+		
+	}
+
+	@Override
+	public void onMachineAssembled(MultiblockControllerBase multiblockControllerBase) {}
+	
+	@Override
+	public void onMachineBroken() { }
+
+	@Override
+	public void onMachineActivated() { }
+
+	@Override
+	public void onMachineDeactivated() { }
+
+	@Override
+	public abstract Class<? extends MultiblockControllerBase> getMultiblockControllerType();
+
+	@Override
+	public void onOrphaned(MultiblockControllerBase oldController,
+			int oldControllerSize, int newControllerSize) {
+	}
+
 }

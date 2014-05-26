@@ -40,12 +40,14 @@ public class ReactorBase extends MultiblockBase{
 	
 	@SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side)
-    {
+    {System.out.println("a");
         TileEntity tile =world.getTileEntity(x, y, z);
-        if(tile instanceof TileReactorBase){
-        	if(((TileReactorBase) tile).hasMaster())
+        if(tile instanceof TileReactorBase){System.out.println("b");
+        	if(((TileReactorBase) tile).hasController())
+        		if(((TileReactorBase) tile).getController().isAssembled()){
+        			return Blocks.stone.getIcon(0, 0);
+        		}
         		
-        		return Blocks.stone.getIcon(0, 0);
         }
         return null;
     }
