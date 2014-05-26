@@ -2,7 +2,6 @@ package DrummerMC.AE2_Addons.Tile;
 
 import DrummerMC.AE2_Addons.libs.erogenousbeef.core.multiblock.MultiblockControllerBase;
 import DrummerMC.AE2_Addons.libs.erogenousbeef.core.multiblock.rectangular.RectangularMultiblockTileEntityBase;
-import DrummerMC.AE2_Addons.libs.erogenousbeef.test.common.TestMultiblockController;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
