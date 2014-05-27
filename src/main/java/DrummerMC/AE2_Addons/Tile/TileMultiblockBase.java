@@ -16,12 +16,24 @@ public abstract class TileMultiblockBase extends RectangularMultiblockTileEntity
 		super();
 		
 	}
+	NBTTagCompound sData;
+	public void readFromNBT(NBTTagCompound tag){
+		super.readFromNBT(tag);
+		if(tag.hasKey("multiblockData")) {
+			this.sData = tag.getCompoundTag("multiblockData");
+		}
+	}
 
 	public final void setController(MultiblockControllerBase controller){
 		this.controller = controller;
 		if(this.worldObj.isRemote){
 			this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			System.out.println(xCoord+" "+yCoord+" "+zCoord);
+			
+		}else{
+			if(this.sData != null && this.hasController()){
+				this.controller.readFromNBT(this.sData);
+			}else{
+			}
 		}
 	}
 	
