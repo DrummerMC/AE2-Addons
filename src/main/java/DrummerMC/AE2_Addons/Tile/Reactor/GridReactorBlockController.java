@@ -1,4 +1,4 @@
-package DrummerMC.AE2_Addons;
+package DrummerMC.AE2_Addons.Tile.Reactor;
 
 import java.util.EnumSet;
 
@@ -18,25 +18,25 @@ import appeng.api.parts.PartItemStack;
 import appeng.api.util.AEColor;
 import appeng.api.util.DimensionalCoord;
 
-public class GrindReactorBlockBase implements IGridBlock{
+public class GridReactorBlockController implements IGridBlock{
 	protected AEColor color;
     protected IGrid grid;
     protected int usedChannels;
-    protected TileReactorBase host;
+    protected TileReactorController host;
 
-    public GrindReactorBlockBase(TileReactorBase _host) {
+    public GridReactorBlockController(TileReactorController _host) {
     	
         host = _host;
     }
 
     @Override
     public double getIdlePowerUsage() {
-        return 0D;
+        return 8D;
     }
 
     @Override
     public EnumSet<GridFlags> getFlags() {
-        return EnumSet.of(GridFlags.TIER_2_CAPACITY);
+        return EnumSet.of(GridFlags.REQUIRE_CHANNEL);
     }
 
     @Override
@@ -55,8 +55,7 @@ public class GrindReactorBlockBase implements IGridBlock{
     }
 
     @Override
-    public void onGridNotification(GridNotification notification) {
-    }
+    public void onGridNotification(GridNotification notification) {}
 
     @Override
     public final void setNetworkStatus(IGrid _grid, int _usedChannels) {
@@ -75,9 +74,7 @@ public class GrindReactorBlockBase implements IGridBlock{
     }
 
     @Override
-    public void gridChanged() {
-    	
-    }
+    public void gridChanged() {}
 
     @Override
     public ItemStack getMachineRepresentation() {

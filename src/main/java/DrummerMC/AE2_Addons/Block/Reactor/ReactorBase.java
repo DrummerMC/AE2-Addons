@@ -12,9 +12,12 @@ import appeng.api.networking.IGrid;
 import appeng.api.networking.IGridBlock;
 import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridNode;
+import appeng.api.networking.IMachineSet;
 import appeng.api.util.AEColor;
 import appeng.api.util.DimensionalCoord;
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -22,15 +25,26 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import DrummerMC.AE2_Addons.AE2_Addons;
 import DrummerMC.AE2_Addons.Block.MultiblockBase;
 import DrummerMC.AE2_Addons.Tile.TileMultiblockBase;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorBase;
+import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorController;
 
 public class ReactorBase extends MultiblockBase{
+	
+	@SideOnly(Side.CLIENT)
+	IIcon icon;
 	
 	@Override
 	public TileEntity createNewTileEntity(World world, int var2) {
 		return new TileReactorBase();
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerBlockIcons(IIconRegister register){
+		this.icon = register.registerIcon("ae2addons:reactor");
 	}
 	
 	@Override
@@ -38,18 +52,54 @@ public class ReactorBase extends MultiblockBase{
 		world.getTileEntity(x, y, z);
 	}
 	
+	@Override
+	public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
+		if(world.isRemote)
+			return;
+		TileEntity tile  = world.getTileEntity(x, y, z);
+		if(tile != null){
+			if(tile instanceof TileReactorBase){
+				IGridNode  node =((TileReactorBase) tile).getGridNode(ForgeDirection.UNKNOWN);
+				if(node != null){
+					node.destroy();
+				}
+			}
+		}
+	}
+	
 	@SideOnly(Side.CLIENT)
     public IIcon getIcon(IBlockAccess world, int x, int y, int z, int side)
-    {System.out.println("a");
+    {
         TileEntity tile =world.getTileEntity(x, y, z);
-        if(tile instanceof TileReactorBase){System.out.println("b");
+        if(tile instanceof TileReactorBase){
         	if(((TileReactorBase) tile).hasController())
         		if(((TileReactorBase) tile).getController().isAssembled()){
         			return Blocks.stone.getIcon(0, 0);
         		}
         		
         }
-        return null;
+        return this.getIcon(side, world.getBlockMetadata(x, y, z));
+    }
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public IIcon getIcon(int side,int meta){
+		return this.icon;
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
+    {
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if(tile != null){
+			if(tile instanceof TileReactorBase){
+				if(((TileReactorBase) tile).hasController() == false)
+					return false;
+				player.openGui(AE2_Addons.instance, 0, world, x, y, z);
+				return true;
+			}
+		}
+        return false;
     }
 	
 }

@@ -17,7 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import DrummerMC.AE2_Addons.AE2_Addons;
 import DrummerMC.AE2_Addons.GrindReactorBlockBase;
-import DrummerMC.AE2_Addons.Block.ReactorMultiblockController;
+import DrummerMC.AE2_Addons.Block.Reactor.ReactorMultiblockController;
 import DrummerMC.AE2_Addons.Tile.TileMultiblockBase;
 import DrummerMC.AE2_Addons.libs.erogenousbeef.core.multiblock.MultiblockControllerBase;
 import DrummerMC.AE2_Addons.network.ReactorMultiblockUpdate;
@@ -109,6 +109,10 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 	@Override
 	public IGridNode getGridNode(ForgeDirection dir) {
 		if(this.node == null){
+			if(!this.hasController())
+				return null;
+			else if(!this.getController().isAssembled())
+				return null;
 			if(!this.worldObj.isRemote){
 				node = AEApi.instance().createGridNode(gridBlock);
 				node.updateState();
@@ -119,7 +123,7 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 
 	@Override
 	public AECableType getCableConnectionType(ForgeDirection dir) {
-		return AECableType.COVERED;
+		return AECableType.DENSE;
 	}
 
 	@Override
