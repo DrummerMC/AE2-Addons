@@ -18,9 +18,11 @@ import appeng.api.util.DimensionalCoord;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -30,6 +32,7 @@ import DrummerMC.AE2_Addons.Block.MultiblockBase;
 import DrummerMC.AE2_Addons.Tile.TileMultiblockBase;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorBase;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorController;
+import DrummerMC.AE2_Addons.network.ChatPacket;
 
 public class ReactorBase extends MultiblockBase{
 	
@@ -90,11 +93,29 @@ public class ReactorBase extends MultiblockBase{
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
     {
+		if(world.isRemote)
+			return false;
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null){
 			if(tile instanceof TileReactorBase){
 				if(((TileReactorBase) tile).hasController() == false)
 					return false;
+				IGridNode node = ((TileReactorBase) tile).getGridNode(ForgeDirection.UNKNOWN);
+				if(node == null)
+					return true;
+				IGrid grid = node.getGrid();
+				if(grid == null)
+					return true;
+				IMachineSet m = grid.getMachines(TileReactorController.class);
+				if(m.size()==0){
+					if(player instanceof EntityPlayerMP)
+						AE2_Addons.network.sendToAll(new ChatPacket("chat.ae2addons.noController"));
+					return true;
+				}else if(m.size()>1){
+					if(player instanceof EntityPlayerMP)
+						AE2_Addons.network.sendTo(new ChatPacket("chat.ae2addons.toManyController"), (EntityPlayerMP) player);
+					return true;
+				}
 				player.openGui(AE2_Addons.instance, 0, world, x, y, z);
 				return true;
 			}

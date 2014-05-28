@@ -37,9 +37,7 @@ public class NetworkHandler extends MessageToMessageCodec<FMLProxyPacket, Abstra
     public NetworkHandler() {
         this.channels = NetworkRegistry.INSTANCE.newChannel("AEtwoADDONS", this);
     
-        if (this.isPostInitialised) {
-            return;
-        }
+        this.registerPackets();
 
         this.isPostInitialised = true;
         Collections.sort(this.packets, new Comparator<Class<? extends AbstractPacket>>() {
@@ -59,6 +57,7 @@ public class NetworkHandler extends MessageToMessageCodec<FMLProxyPacket, Abstra
     
     private void registerPackets(){
     	this.registerPacket(ReactorMultiblockUpdate.class);
+    	this.registerPacket(ChatPacket.class);
     }
 
     
