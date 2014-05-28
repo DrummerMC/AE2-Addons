@@ -1,0 +1,13 @@
+
+//Chat
+chat.ae2addons.noController=You need one Reactor-Controller in the ME Network.
+chat.ae2addons.toManyController=You have to many Reactor-Controller in your ME Network.
+
+//Gui
+gui.ae2addons.reactor.button.activate=Activate
+gui.ae2addons.reactor.button.deActivate=Deactivate
+gui.ae2addons.reactor.base=ME Reactor
+
+//Blocks
+tile.ae2addons.reactorcontroller.name=ME Reactorcontroller
+tile.ae2addons.reactor.base.name=ME Reactor
