@@ -1,5 +1,8 @@
 package DrummerMC.AE2_Addons.Container;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import DrummerMC.AE2_Addons.Gui.GuiReactorBase;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,12 +13,15 @@ import net.minecraft.item.ItemStack;
 
 public class ContainerReactorBase extends Container{
 	
-	protected TileReactorBase tile;
-
+	public TileReactorBase tile;
+	
+	@SideOnly(Side.CLIENT)
+	public GuiReactorBase gui = null;
+	
     public ContainerReactorBase (InventoryPlayer inventoryPlayer, TileReactorBase tile){
             this.tile = tile;
 
-            addSlotToContainer(new Slot((IInventory) tile.getController(), 0, 20, 20));
+            addSlotToContainer(new Slot((IInventory) tile.getController(), 0, 20, 21));
             
             for (int i = 0; i < 3; i++) {
             	for (int j = 0; j < 9; j++) {

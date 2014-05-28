@@ -56,7 +56,7 @@ public class NetworkHandler extends MessageToMessageCodec<FMLProxyPacket, Abstra
     
     
     private void registerPackets(){
-    	this.registerPacket(ReactorMultiblockUpdate.class);
+    	this.registerPacket(ReactorUpdate.class);
     	this.registerPacket(ChatPacket.class);
     }
 

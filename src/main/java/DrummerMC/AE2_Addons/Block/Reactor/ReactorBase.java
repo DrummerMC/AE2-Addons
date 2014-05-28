@@ -33,11 +33,19 @@ import DrummerMC.AE2_Addons.Tile.TileMultiblockBase;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorBase;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorController;
 import DrummerMC.AE2_Addons.network.ChatPacket;
+import DrummerMC.AE2_Addons.network.ReactorUpdate;
 
 public class ReactorBase extends MultiblockBase{
 	
+	public ReactorBase(){
+		super();
+		this.setBlockName("ae2addons.reactor.base");
+	}
+	
 	@SideOnly(Side.CLIENT)
 	IIcon icon;
+	@SideOnly(Side.CLIENT)
+	IIcon icon2;
 	
 	@Override
 	public TileEntity createNewTileEntity(World world, int var2) {
@@ -48,6 +56,7 @@ public class ReactorBase extends MultiblockBase{
 	@Override
 	public void registerBlockIcons(IIconRegister register){
 		this.icon = register.registerIcon("ae2addons:reactor");
+		this.icon2 = register.registerIcon("ae2addons:reactor2");
 	}
 	
 	@Override
@@ -77,7 +86,7 @@ public class ReactorBase extends MultiblockBase{
         if(tile instanceof TileReactorBase){
         	if(((TileReactorBase) tile).hasController())
         		if(((TileReactorBase) tile).getController().isAssembled()){
-        			return Blocks.stone.getIcon(0, 0);
+        			return icon2;
         		}
         		
         }
@@ -94,7 +103,7 @@ public class ReactorBase extends MultiblockBase{
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int p_149727_6_, float p_149727_7_, float p_149727_8_, float p_149727_9_)
     {
 		if(world.isRemote)
-			return false;
+			return true;
 		TileEntity tile = world.getTileEntity(x, y, z);
 		if(tile != null){
 			if(tile instanceof TileReactorBase){
@@ -117,6 +126,7 @@ public class ReactorBase extends MultiblockBase{
 					return true;
 				}
 				player.openGui(AE2_Addons.instance, 0, world, x, y, z);
+				AE2_Addons.network.sendTo(new ReactorUpdate(x,y,z,world.provider.dimensionId,((ReactorMultiblockController)((TileReactorBase) tile).getController()).isActive), (EntityPlayerMP) player);
 				return true;
 			}
 		}

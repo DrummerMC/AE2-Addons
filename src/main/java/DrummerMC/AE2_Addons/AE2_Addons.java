@@ -11,7 +11,9 @@ import DrummerMC.AE2_Addons.proxy.CommonProxy;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -50,6 +52,7 @@ public class AE2_Addons
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+    	OreDictionary.registerOre("ingotUranium", Items.apple);
     	proxy.init();
     	this.reactor = new ReactorBase();
     	this.reactor.setCreativeTab(CreativeTabs.tabRedstone);

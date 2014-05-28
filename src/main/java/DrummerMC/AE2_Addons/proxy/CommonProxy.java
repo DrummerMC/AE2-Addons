@@ -12,5 +12,8 @@ public class CommonProxy {
 		FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
 		NetworkRegistry.INSTANCE.registerGuiHandler(AE2_Addons.instance, new GuiHandler());
 	}
+	
+	//loads the language on the client side
+	public void loadLaguage(){}
 
 }

@@ -20,7 +20,6 @@ import DrummerMC.AE2_Addons.GrindReactorBlockBase;
 import DrummerMC.AE2_Addons.Block.Reactor.ReactorMultiblockController;
 import DrummerMC.AE2_Addons.Tile.TileMultiblockBase;
 import DrummerMC.AE2_Addons.libs.erogenousbeef.core.multiblock.MultiblockControllerBase;
-import DrummerMC.AE2_Addons.network.ReactorMultiblockUpdate;
 
 public class TileReactorBase extends TileMultiblockBase implements IAEPowerStorage, IGridHost{
 	
@@ -33,11 +32,6 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 		
 	}
 	
-	protected double energy = 0D;
-	
-	
-   
-  
     @Override
     public void writeToNBT(NBTTagCompound data) {
         super.writeToNBT(data);
@@ -58,18 +52,19 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 		if(!(this.hasController()))
 			return 0;
 		if(mode == Actionable.SIMULATE){
-			if(this.energy>=amt){
+			if(((ReactorMultiblockController)this.getController()).energy>=amt){
 				return amt;
 			}else{
-				return this.energy;
+				return ((ReactorMultiblockController)this.getController()).energy;
 			}
 		}else{
-			if(this.energy>=amt){
-				this.energy = this.energy -amt;
+			if(((ReactorMultiblockController)this.getController()).energy>=amt){
+				((ReactorMultiblockController)this.getController()).energy = ((ReactorMultiblockController)this.getController()).energy -amt;
 				return amt;
 			}else{
-				this.energy = 0D;
-				return this.energy;
+				double oldEnergy = ((ReactorMultiblockController)this.getController()).energy+0D;
+				((ReactorMultiblockController)this.getController()).energy = 0D;
+				return oldEnergy;
 			}
 		}
 	}
@@ -86,6 +81,7 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 
 	@Override
 	public double getAECurrentPower() {
+		System.out.println("test");
 		if(this.hasController()){
 			return (((ReactorMultiblockController)this.getController()).energy/this.getController().getNumConnectedBlocks());
 		}else{
@@ -100,10 +96,7 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 
 	@Override
 	public AccessRestriction getPowerFlow() {
-		if(this.hasController()){
-			return AccessRestriction.READ;
-		}
-		return AccessRestriction.NO_ACCESS;
+		return AccessRestriction.READ;
 	}
 
 	@Override
