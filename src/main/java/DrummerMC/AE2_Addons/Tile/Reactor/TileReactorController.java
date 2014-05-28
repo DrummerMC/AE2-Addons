@@ -3,6 +3,7 @@ package DrummerMC.AE2_Addons.Tile.Reactor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
+import DrummerMC.AE2_Addons.AE2_Addons;
 import appeng.api.AEApi;
 import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridNode;
@@ -42,7 +43,7 @@ public class TileReactorController extends TileEntity implements IGridHost {
 	}
 
 	public ItemStack getItemStack() {
-		return new ItemStack(this.blockType);
+		return new ItemStack(AE2_Addons.reactorController);
 	}
 
 }
