@@ -63,7 +63,7 @@ public class GuiReactorBase extends GuiContainer {
                      int par3) {
              GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
              
-             this.mc.renderEngine.bindTexture(new ResourceLocation("ae2addons:/textures/gui/reactor.png"));
+             this.mc.renderEngine.bindTexture(new ResourceLocation("ae2addons:textures/gui/reactor.png"));
              int x = (width - xSize) / 2;
              int y = (height - ySize) / 2;
              this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
