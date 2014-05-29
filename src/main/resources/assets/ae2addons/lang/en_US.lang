@@ -11,3 +11,6 @@ gui.ae2addons.reactor.base=ME Reactor
 //Blocks
 tile.ae2addons.reactorcontroller.name=ME Reactorcontroller
 tile.ae2addons.reactor.base.name=ME Reactor
+
+//Creative Tab
+itemGroup.ae2addons=AE2 Addons

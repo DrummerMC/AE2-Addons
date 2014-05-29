@@ -13,7 +13,7 @@ public class CommonProxy {
 		NetworkRegistry.INSTANCE.registerGuiHandler(AE2_Addons.instance, new GuiHandler());
 	}
 	
-	//loads the language on the client side
-	public void loadLaguage(){}
+	//Client Side Only
+	public void registerRenderers(){}
 
 }

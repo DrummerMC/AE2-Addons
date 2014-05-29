@@ -34,7 +34,7 @@ public class GuiReactorBase extends GuiContainer {
         int y = (height - ySize) / 2;
 		
 		//the parameter number 6 is ignoreged because I override the method which draw the string
-		buttonList.add(new GuiButton(1, x+10, y+40, 60, 20, ""){
+		buttonList.add(new GuiButton(1, x+10, y+40, 65, 20, ""){
 			@Override
 			public void drawCenteredString(FontRenderer par1FontRenderer, String par2Str, int par3, int par4, int par5){
 		        if(!isActivate){
@@ -64,7 +64,6 @@ public class GuiReactorBase extends GuiContainer {
              GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
              
              this.mc.renderEngine.bindTexture(new ResourceLocation("ae2addons:/textures/gui/reactor.png"));
-             
              int x = (width - xSize) / 2;
              int y = (height - ySize) / 2;
              this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);

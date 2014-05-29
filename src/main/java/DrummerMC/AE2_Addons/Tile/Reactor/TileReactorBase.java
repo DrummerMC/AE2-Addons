@@ -81,7 +81,6 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 
 	@Override
 	public double getAECurrentPower() {
-		System.out.println("test");
 		if(this.hasController()){
 			return (((ReactorMultiblockController)this.getController()).energy/this.getController().getNumConnectedBlocks());
 		}else{

@@ -42,10 +42,17 @@ public class ReactorBase extends MultiblockBase{
 		this.setBlockName("ae2addons.reactor.base");
 	}
 	
+	public static int renderID = 0;
+	
 	@SideOnly(Side.CLIENT)
 	IIcon icon;
 	@SideOnly(Side.CLIENT)
 	IIcon icon2;
+	
+	@Override
+	public int getRenderType(){
+        return renderID;
+    }
 	
 	@Override
 	public TileEntity createNewTileEntity(World world, int var2) {
