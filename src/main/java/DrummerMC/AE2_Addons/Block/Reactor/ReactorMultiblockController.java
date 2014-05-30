@@ -347,5 +347,4 @@ public class ReactorMultiblockController extends
 		}
 		return false;
 	}
-
 }

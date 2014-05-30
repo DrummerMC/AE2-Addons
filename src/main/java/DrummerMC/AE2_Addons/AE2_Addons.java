@@ -8,6 +8,8 @@ import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorController;
 import DrummerMC.AE2_Addons.libs.erogenousbeef.core.multiblock.MultiblockEventHandler;
 import DrummerMC.AE2_Addons.network.NetworkHandler;
 import DrummerMC.AE2_Addons.proxy.CommonProxy;
+import net.minecraft.block.BlockFurnace;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -65,8 +67,7 @@ public class AE2_Addons
     }
     
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void init(FMLInitializationEvent event){
     	OreDictionary.registerOre("ingotUranium", Items.apple);
     	proxy.init();
     	this.reactor = new ReactorBase();

@@ -48,13 +48,11 @@ public abstract class TileMultiblockBase extends RectangularMultiblockTileEntity
 	@Override
 	protected void encodeDescriptionPacket(NBTTagCompound packetData) {
 		super.encodeDescriptionPacket(packetData);
-		
 	}
 	
 	@Override
 	protected void decodeDescriptionPacket(NBTTagCompound packetData) {
 		super.decodeDescriptionPacket(packetData);
-		
 	}
 
 	@Override
@@ -63,41 +61,31 @@ public abstract class TileMultiblockBase extends RectangularMultiblockTileEntity
 	///// Game logic methods. In a real game, do real stuff here.
 	
 	@Override
-	public void isGoodForFrame() {
-		
-	}
+	public void isGoodForFrame() {}
 
 	@Override
-	public void isGoodForSides() {
-		
-	}
+	public void isGoodForSides() {}
 
 	@Override
-	public void isGoodForTop() {
-		
-	}
+	public void isGoodForTop() {}
 
 	@Override
-	public void isGoodForBottom() {
-		
-	}
+	public void isGoodForBottom() {}
 
 	@Override
-	public void isGoodForInterior() {
-		
-	}
+	public void isGoodForInterior() {}
 
 	@Override
 	public void onMachineAssembled(MultiblockControllerBase multiblockControllerBase) {}
 	
 	@Override
-	public void onMachineBroken() { }
+	public void onMachineBroken() {}
 
 	@Override
-	public void onMachineActivated() { }
+	public void onMachineActivated() {}
 
 	@Override
-	public void onMachineDeactivated() { }
+	public void onMachineDeactivated() {}
 
 	@Override
 	public abstract Class<? extends MultiblockControllerBase> getMultiblockControllerType();
@@ -106,5 +94,4 @@ public abstract class TileMultiblockBase extends RectangularMultiblockTileEntity
 	public void onOrphaned(MultiblockControllerBase oldController,
 			int oldControllerSize, int newControllerSize) {
 	}
-
 }

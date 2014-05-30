@@ -1,10 +1,15 @@
 package DrummerMC.AE2_Addons.renderer.block;
 
+import org.lwjgl.opengl.GL11;
+
 import appeng.api.AEApi;
 import DrummerMC.AE2_Addons.AE2_Addons;
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.world.IBlockAccess;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 public class BlockRendererReactor implements ISimpleBlockRenderingHandler {
@@ -29,7 +34,7 @@ public class BlockRendererReactor implements ISimpleBlockRenderingHandler {
 			return renderer.renderStandardBlock(block, x, y, z);
 		}
 	}
-
+	
 	@Override
 	public boolean shouldRender3DInInventory(int modelId) {
 		return true;

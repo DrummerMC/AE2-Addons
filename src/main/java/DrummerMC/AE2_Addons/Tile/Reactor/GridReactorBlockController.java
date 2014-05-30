@@ -23,9 +23,8 @@ public class GridReactorBlockController implements IGridBlock{
     protected IGrid grid;
     protected int usedChannels;
     protected TileReactorController host;
-
+    
     public GridReactorBlockController(TileReactorController _host) {
-    	
         host = _host;
     }
 

@@ -8,8 +8,12 @@ import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorController;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
@@ -17,6 +21,10 @@ public class BlockReactorController extends BlockContainer {
 	
 	@SideOnly(Side.CLIENT)
 	protected IIcon icon;
+	@SideOnly(Side.CLIENT)
+	protected IIcon icon_top;
+	
+	public static int renderID = 0;
 	
 	public BlockReactorController() {
 		super(Material.iron);
@@ -59,11 +67,48 @@ public class BlockReactorController extends BlockContainer {
 	@Override
 	public void registerBlockIcons(IIconRegister register){
 		this.icon = register.registerIcon("ae2addons:reactor_controller");
+		this.icon_top = register.registerIcon("ae2addons:reactor_controller_top");
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side,int meta){
+		if(ForgeDirection.UP.ordinal() == side){
+			return this.icon_top;
+		}
 		return this.icon;
 	}
+	
+	@Override
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
+    {
+        int l = MathHelper.floor_double((double)(entity.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+        
+        TileEntity tile = world.getTileEntity(x, y, z);
+        if(tile instanceof TileReactorController){
+        	if(l == 0){
+        		((TileReactorController) tile).dir = 2;
+        	}else if(l == 2){
+        		((TileReactorController) tile).dir = 0;
+        	}else{
+        		((TileReactorController) tile).dir = l;
+        	}
+        }
+        
+    }
+	
+	@Override
+	public boolean isOpaqueCube(){
+		return false;
+	}
+	
+	@Override
+	public boolean renderAsNormalBlock(){
+		return false;
+	}
+	
+	@Override
+	public int getRenderType(){
+        return renderID;
+    }
 }
