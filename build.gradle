@@ -68,7 +68,7 @@ task deobfJar(type: Jar) {
 task apiJar(type: Jar) {
     from sourceSets.main.output
     appendix = 'api'
-    include 'DrummerMC/AE2_Addons/API/**'
+    include 'DrummerMC/AE2_Addons/Api/**'
 }
 
 artifacts {
