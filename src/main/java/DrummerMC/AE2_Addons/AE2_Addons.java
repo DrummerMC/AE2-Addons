@@ -1,8 +1,10 @@
 package DrummerMC.AE2_Addons;
 
 import appeng.api.AEApi;
+import DrummerMC.AE2_Addons.Block.BlockAENormal;
 import DrummerMC.AE2_Addons.Block.Reactor.BlockReactorController;
 import DrummerMC.AE2_Addons.Block.Reactor.ReactorBase;
+import DrummerMC.AE2_Addons.Tile.TileEnergyAutomaticCharger;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorBase;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorController;
 import DrummerMC.AE2_Addons.libs.erogenousbeef.core.multiblock.MultiblockEventHandler;
@@ -38,6 +40,7 @@ public class AE2_Addons
     
     public static ReactorBase reactor;
     public static BlockReactorController reactorController;
+    public static BlockAENormal aeNormalBlock;
     
     private MultiblockEventHandler multiblockEventHandler;
     
@@ -70,14 +73,18 @@ public class AE2_Addons
     public void init(FMLInitializationEvent event){
     	OreDictionary.registerOre("ingotUranium", Items.apple);
     	proxy.init();
-    	this.reactor = new ReactorBase();
-    	this.reactor.setCreativeTab(tab);
+    	reactor = new ReactorBase();
+    	reactor.setCreativeTab(tab);
     	reactorController = new BlockReactorController();
     	reactorController.setCreativeTab(tab);
-    	GameRegistry.registerBlock(this.reactor, "reactor");
-    	GameRegistry.registerBlock(this.reactorController, "reactorController");
+    	aeNormalBlock = new BlockAENormal();
+    	aeNormalBlock.setCreativeTab(tab);
+    	GameRegistry.registerBlock(reactor, "reactor");
+    	GameRegistry.registerBlock(reactorController, "reactorController");
+    	GameRegistry.registerBlock(aeNormalBlock, "aeNormalBlock");
     	GameRegistry.registerTileEntity(TileReactorBase.class, "tileReactor");
     	GameRegistry.registerTileEntity(TileReactorController.class, "tileReactorController");
+    	GameRegistry.registerTileEntity(TileEnergyAutomaticCharger.class, "tileEnergyAutomaticCharger");
     }
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
