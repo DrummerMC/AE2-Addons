@@ -28,11 +28,13 @@ minecraft {
     replace '@VERSION@', version
 }
 
+dependencies {
+    compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+}
+
 sourceSets {
     api {
         java {
-            exclude '**/layers/**'
-            exclude '**/integration/**'
         }
     }
 }
@@ -63,8 +65,15 @@ task deobfJar(type: Jar) {
     appendix = 'deobf'
 }
 
+task apiJar(type: Jar) {
+    from sourceSets.main.output
+    appendix = 'api'
+    include 'DrummerMC/AE2_Addons/API/**'
+}
+
 artifacts {
     archives deobfJar
+    archives apiJar
 }
 
 def getBuildNumber() {

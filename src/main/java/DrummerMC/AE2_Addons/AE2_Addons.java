@@ -1,9 +1,11 @@
 package DrummerMC.AE2_Addons;
 
 import appeng.api.AEApi;
+import DrummerMC.AE2_Addons.Api.Grid.IEnergyStorageGrid;
 import DrummerMC.AE2_Addons.Block.BlockAENormal;
 import DrummerMC.AE2_Addons.Block.Reactor.BlockReactorController;
 import DrummerMC.AE2_Addons.Block.Reactor.ReactorBase;
+import DrummerMC.AE2_Addons.StorageEnergy.EnergyStorageGrid;
 import DrummerMC.AE2_Addons.Tile.TileEnergyAutomaticCharger;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorBase;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorController;
@@ -56,6 +58,7 @@ public class AE2_Addons
     
     @EventHandler
     public void preinit(FMLPreInitializationEvent event){
+    	API.instance = new APIInstance();
     	tab = new CreativeTabs(MODID) {
     		
     		@SideOnly(Side.CLIENT)
@@ -71,6 +74,7 @@ public class AE2_Addons
     
     @EventHandler
     public void init(FMLInitializationEvent event){
+    	AEApi.instance().registries().gridCache().registerGridCache(IEnergyStorageGrid.class, EnergyStorageGrid.class);
     	OreDictionary.registerOre("ingotUranium", Items.apple);
     	proxy.init();
     	reactor = new ReactorBase();
