@@ -5,6 +5,8 @@ import DrummerMC.AE2_Addons.Api.Grid.IEnergyStorageGrid;
 import DrummerMC.AE2_Addons.Block.BlockAENormal;
 import DrummerMC.AE2_Addons.Block.Reactor.BlockReactorController;
 import DrummerMC.AE2_Addons.Block.Reactor.ReactorBase;
+import DrummerMC.AE2_Addons.Item.EnergyCell;
+import DrummerMC.AE2_Addons.Parts.PartItem;
 import DrummerMC.AE2_Addons.StorageEnergy.EnergyStorageGrid;
 import DrummerMC.AE2_Addons.Tile.TileEnergyAutomaticCharger;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorBase;
@@ -44,6 +46,9 @@ public class AE2_Addons
     public static BlockReactorController reactorController;
     public static BlockAENormal aeNormalBlock;
     
+    public static PartItem partItem;
+    public static EnergyCell energyCell;
+    
     private MultiblockEventHandler multiblockEventHandler;
     
     public static NetworkHandler network;
@@ -77,6 +82,11 @@ public class AE2_Addons
     	AEApi.instance().registries().gridCache().registerGridCache(IEnergyStorageGrid.class, EnergyStorageGrid.class);
     	OreDictionary.registerOre("ingotUranium", Items.apple);
     	proxy.init();
+    	partItem = new PartItem();
+    	partItem.setCreativeTab(tab);
+    	energyCell = new EnergyCell();
+    	energyCell.setCreativeTab(tab);
+    	AEApi.instance().partHelper().setItemBusRenderer(partItem);
     	reactor = new ReactorBase();
     	reactor.setCreativeTab(tab);
     	reactorController = new BlockReactorController();
@@ -89,6 +99,8 @@ public class AE2_Addons
     	GameRegistry.registerTileEntity(TileReactorBase.class, "tileReactor");
     	GameRegistry.registerTileEntity(TileReactorController.class, "tileReactorController");
     	GameRegistry.registerTileEntity(TileEnergyAutomaticCharger.class, "tileEnergyAutomaticCharger");
+    	GameRegistry.registerItem(partItem, "partItem");
+    	GameRegistry.registerItem(energyCell, "energyCell");
     }
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
