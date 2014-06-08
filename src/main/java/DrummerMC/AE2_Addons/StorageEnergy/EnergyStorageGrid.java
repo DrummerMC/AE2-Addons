@@ -4,6 +4,8 @@
 package DrummerMC.AE2_Addons.StorageEnergy;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +22,7 @@ import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.IGridStorage;
 import appeng.api.storage.ICellContainer;
+import appeng.api.storage.ICellHandler;
 import appeng.api.storage.IMEInventoryHandler;
 import appeng.api.storage.StorageChannel;
 
@@ -100,7 +103,12 @@ public class EnergyStorageGrid implements IEnergyStorageGrid {
 									Field f;
 									f = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("handler");
 									f.setAccessible(true);
-								handler = (IMEInventoryHandler) f.get(handler);
+									ICellHandler cellHandler = (ICellHandler) f.get(handler);
+									Field f2 = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("is");
+									f2.setAccessible(true);
+									if(cellHandler.isCell((ItemStack) f2.get(handler))){
+										handler = cellHandler.getCellInventory((ItemStack) f2.get(handler), StorageChannel.ITEMS);
+									}
 								} catch (NoSuchFieldException e) {
 									e.printStackTrace();
 								} catch (SecurityException e) {
@@ -112,8 +120,26 @@ public class EnergyStorageGrid implements IEnergyStorageGrid {
 								} catch (IllegalAccessException e) {
 									e.printStackTrace();
 								}
+							}else if(handler.getClass().getName().equals("appeng.tile.storage.TileChest$ChestMonitorHandler")){
+								try {
+									Method m = Class.forName("appeng.tile.storage.TileChest$ChestMonitorHandler").getDeclaredMethod("getInternalHandler");
+									m.setAccessible(true);
+									handler = (IMEInventoryHandler) m.invoke(handler);
+								} catch (NoSuchMethodException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (InvocationTargetException e) {
+									e.printStackTrace();
+								}
 							}
-							System.out.println(handler);
+							System.out.println(handler.getClass().getName());
 							if(handler instanceof IEnergyHandler){
 								
 								System.out.println("c");
