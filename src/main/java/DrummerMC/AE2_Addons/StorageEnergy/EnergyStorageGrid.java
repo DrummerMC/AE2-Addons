@@ -3,6 +3,7 @@
  */
 package DrummerMC.AE2_Addons.StorageEnergy;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,7 +95,24 @@ public class EnergyStorageGrid implements IEnergyStorageGrid {
 						List<IMEInventoryHandler> handlers = container.getCellArray(StorageChannel.ITEMS);
 						System.out.println("a");
 						for(IMEInventoryHandler handler : handlers){
-							
+							if(handler.getClass().getName().equals("appeng.me.storage.DriveWatcher")){
+								try {
+									Field f;
+									f = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("handler");
+									f.setAccessible(true);
+								handler = (IMEInventoryHandler) f.get(handler);
+								} catch (NoSuchFieldException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								}
+							}
 							System.out.println(handler);
 							if(handler instanceof IEnergyHandler){
 								
