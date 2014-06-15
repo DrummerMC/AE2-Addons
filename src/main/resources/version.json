@@ -1,0 +1,13 @@
+{
+	"versionList": [
+		{
+			"mcVersion":"Minecraft 1.7.2",
+			"modVersion":"${version}",
+			"changeLog": [
+				"https://drummermc.ci.cloudbees.com/job/AE2Addons/changes"],
+			"updateURL":"https://drummermc.ci.cloudbees.com/job/AE2Addons/lastStableBuild/AE2-Addons-${version}.jar",
+			"isDirectLink":"true",
+			"newFileName":"AE2-Addons-${version}.jar"
+		}
+	]
+}
