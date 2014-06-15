@@ -77,5 +77,11 @@ artifacts {
 }
 
 def getBuildNumber() {
-    return "$System.env.DRONE_BUILD_NUMBER" != "null" ? "$System.env.DRONE_BUILD_NUMBER" : "0"
+    if ("$System.env.DRONE_BUILD_NUMBER" != "null"){
+        return "drone."+"$System.env.DRONE_BUILD_NUMBER"
+    }
+    else if ("$System.env.BUILD_ID" != "null"){
+        return "jenkins."+"$System.env.BUILD_ID"
+    }
+    return "0"
 }
