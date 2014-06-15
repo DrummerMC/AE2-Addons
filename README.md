@@ -1,4 +1,4 @@
-AE2-Addons
+AE2-Addons [![Build Status](https://drummermc.ci.cloudbees.com/job/AE2Addons/badge/icon)](https://drummermc.ci.cloudbees.com/job/AE2Addons/) [![Build Status](https://drone.io/github.com/DrummerMC/AE2-Addons/status.png)](https://drone.io/github.com/DrummerMC/AE2-Addons/files)
 ==========
 
 This mod use the code from BeffCore. The code can be find <a href="https://github.com/erogenousbeef/BeefCore/">here.</a>
@@ -11,4 +11,4 @@ Download the last version of <a href="http://files.minecraftforge.net/">Minecraf
 Download
 ==========
 
-Download can be found <a href="https://drone.io/github.com/DrummerMC/AE2-Addons/files">here</a>.
+Download can be found <a href="https://drone.io/github.com/DrummerMC/AE2-Addons/files">here</a> or on <a href="https://drummermc.ci.cloudbees.com/job/AE2Addons/">Jenkins</a>.
