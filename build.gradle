@@ -80,8 +80,8 @@ def getBuildNumber() {
     if ("$System.env.DRONE_BUILD_NUMBER" != "null"){
         return "drone."+"$System.env.DRONE_BUILD_NUMBER"
     }
-    else if ("$System.env.BUILD_ID" != "null"){
-        return "jenkins."+"$System.env.BUILD_ID"
+    else if ("$System.env.BUILD_NUMBER" != "null"){
+        return "jenkins."+"$System.env.BUILD_NUMBER"
     }
     return "0"
 }
