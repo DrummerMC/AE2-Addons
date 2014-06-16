@@ -35,7 +35,7 @@ public class EnergyStorageGrid implements IEnergyStorageGrid {
 	
 	private final IGrid grid;
 	private final List<StorageBase> storageMJ = new ArrayList<StorageBase>();
-	private final List<StorageBase> storagaeJ = new ArrayList<StorageBase>();
+	private final List<StorageBase> storageJ = new ArrayList<StorageBase>();
 	private final List<StorageBase> storageRF = new ArrayList<StorageBase>();
 	private final List<IEnergyGrid> storage = new ArrayList<IEnergyGrid>();
 	
@@ -84,31 +84,40 @@ public class EnergyStorageGrid implements IEnergyStorageGrid {
 	
 	@Override
 	public double getEnergy(EnergyType type, String ChannelName) {
+		double energy;
 		switch(type){
 		case MJ:
+			energy = 0;
 			if(!(this.storageMJ.contains(new StorageBase(type, ChannelName)))){
 				StorageBase storage = new StorageBase(type, ChannelName);
 				storage.update(grid);
 				this.storageMJ.add(storage);
 			}
+			for(IEnergyGrid g : this.storage){
+				if(g.getEnergyType() == type && g.getChannelName().equals(ChannelName)){
+					energy = energy + g.getEnergy();
+				}
+			}
 			for(StorageBase base : this.storageMJ){
 				if(base.equals(new StorageBase(type, ChannelName))){
-					double energy = 0;
 					for(ICellContainer container : base.list2){
 						List<IMEInventoryHandler> handlers = container.getCellArray(StorageChannel.ITEMS);
-						System.out.println("a");
 						for(IMEInventoryHandler handler : handlers){
 							if(handler.getClass().getName().equals("appeng.me.storage.DriveWatcher")){
 								try {
 									Field f;
 									f = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("handler");
+									boolean b1 = f.isAccessible();
 									f.setAccessible(true);
 									ICellHandler cellHandler = (ICellHandler) f.get(handler);
 									Field f2 = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("is");
+									boolean b2 = f2.isAccessible();
 									f2.setAccessible(true);
 									if(cellHandler.isCell((ItemStack) f2.get(handler))){
 										handler = cellHandler.getCellInventory((ItemStack) f2.get(handler), StorageChannel.ITEMS);
 									}
+									f.setAccessible(b1);
+									f2.setAccessible(b2);
 								} catch (NoSuchFieldException e) {
 									e.printStackTrace();
 								} catch (SecurityException e) {
@@ -123,8 +132,10 @@ public class EnergyStorageGrid implements IEnergyStorageGrid {
 							}else if(handler.getClass().getName().equals("appeng.tile.storage.TileChest$ChestMonitorHandler")){
 								try {
 									Method m = Class.forName("appeng.tile.storage.TileChest$ChestMonitorHandler").getDeclaredMethod("getInternalHandler");
+									boolean b = m.isAccessible();
 									m.setAccessible(true);
 									handler = (IMEInventoryHandler) m.invoke(handler);
+									m.setAccessible(b);
 								} catch (NoSuchMethodException e) {
 									e.printStackTrace();
 								} catch (SecurityException e) {
@@ -139,40 +150,416 @@ public class EnergyStorageGrid implements IEnergyStorageGrid {
 									e.printStackTrace();
 								}
 							}
-							System.out.println(handler.getClass().getName());
 							if(handler instanceof IEnergyHandler){
-								
-								System.out.println("c");
 								ItemStack stack = ((IEnergyHandler) handler).getCell();
 								if(stack.getItem() instanceof IEnergyCell){
 									IEnergyCell cell = (IEnergyCell) stack.getItem();
 									energy = energy + cell.getEnergy(stack, type, ChannelName);
-									
 								}
 							}
 						}
 					}
-					System.err.println(energy);
 					return energy;
 				}
 			}
 			break;
 		case RF:
-			
+			energy = 0;
+			if(!(this.storageRF.contains(new StorageBase(type, ChannelName)))){
+				StorageBase storage = new StorageBase(type, ChannelName);
+				storage.update(grid);
+				this.storageRF.add(storage);
+			}
+			for(IEnergyGrid g : this.storage){
+				if(g.getEnergyType() == type && g.getChannelName().equals(ChannelName)){
+					energy = energy + g.getEnergy();
+				}
+			}
+			for(StorageBase base : this.storageRF){
+				if(base.equals(new StorageBase(type, ChannelName))){
+					for(ICellContainer container : base.list2){
+						List<IMEInventoryHandler> handlers = container.getCellArray(StorageChannel.ITEMS);
+						for(IMEInventoryHandler handler : handlers){
+							if(handler.getClass().getName().equals("appeng.me.storage.DriveWatcher")){
+								try {
+									Field f;
+									f = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("handler");
+									boolean b1 = f.isAccessible();
+									f.setAccessible(true);
+									ICellHandler cellHandler = (ICellHandler) f.get(handler);
+									Field f2 = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("is");
+									boolean b2 = f2.isAccessible();
+									f2.setAccessible(true);
+									if(cellHandler.isCell((ItemStack) f2.get(handler))){
+										handler = cellHandler.getCellInventory((ItemStack) f2.get(handler), StorageChannel.ITEMS);
+									}
+									f.setAccessible(b1);
+									f2.setAccessible(b2);
+								} catch (NoSuchFieldException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								}
+							}else if(handler.getClass().getName().equals("appeng.tile.storage.TileChest$ChestMonitorHandler")){
+								try {
+									Method m = Class.forName("appeng.tile.storage.TileChest$ChestMonitorHandler").getDeclaredMethod("getInternalHandler");
+									boolean b = m.isAccessible();
+									m.setAccessible(true);
+									handler = (IMEInventoryHandler) m.invoke(handler);
+									m.setAccessible(b);
+								} catch (NoSuchMethodException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (InvocationTargetException e) {
+									e.printStackTrace();
+								}
+							}
+							if(handler instanceof IEnergyHandler){
+								ItemStack stack = ((IEnergyHandler) handler).getCell();
+								if(stack.getItem() instanceof IEnergyCell){
+									IEnergyCell cell = (IEnergyCell) stack.getItem();
+									energy = energy + cell.getEnergy(stack, type, ChannelName);
+								}
+							}
+						}
+					}
+					return energy;
+				}
+			}
 			break;
 		case J:
-			
+			energy = 0;
+			if(!(this.storageJ.contains(new StorageBase(type, ChannelName)))){
+				StorageBase storage = new StorageBase(type, ChannelName);
+				storage.update(grid);
+				this.storageJ.add(storage);
+			}
+			for(IEnergyGrid g : this.storage){
+				if(g.getEnergyType() == type && g.getChannelName().equals(ChannelName)){
+					energy = energy + g.getEnergy();
+				}
+			}
+			for(StorageBase base : this.storageJ){
+				if(base.equals(new StorageBase(type, ChannelName))){
+					for(ICellContainer container : base.list2){
+						List<IMEInventoryHandler> handlers = container.getCellArray(StorageChannel.ITEMS);
+						for(IMEInventoryHandler handler : handlers){
+							if(handler.getClass().getName().equals("appeng.me.storage.DriveWatcher")){
+								try {
+									Field f;
+									f = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("handler");
+									boolean b1 = f.isAccessible();
+									f.setAccessible(true);
+									ICellHandler cellHandler = (ICellHandler) f.get(handler);
+									Field f2 = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("is");
+									boolean b2 = f2.isAccessible();
+									f2.setAccessible(true);
+									if(cellHandler.isCell((ItemStack) f2.get(handler))){
+										handler = cellHandler.getCellInventory((ItemStack) f2.get(handler), StorageChannel.ITEMS);
+									}
+									f.setAccessible(b1);
+									f2.setAccessible(b2);
+								} catch (NoSuchFieldException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								}
+							}else if(handler.getClass().getName().equals("appeng.tile.storage.TileChest$ChestMonitorHandler")){
+								try {
+									Method m = Class.forName("appeng.tile.storage.TileChest$ChestMonitorHandler").getDeclaredMethod("getInternalHandler");
+									boolean b = m.isAccessible();
+									m.setAccessible(true);
+									handler = (IMEInventoryHandler) m.invoke(handler);
+									m.setAccessible(b);
+								} catch (NoSuchMethodException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (InvocationTargetException e) {
+									e.printStackTrace();
+								}
+							}
+							if(handler instanceof IEnergyHandler){
+								ItemStack stack = ((IEnergyHandler) handler).getCell();
+								if(stack.getItem() instanceof IEnergyCell){
+									IEnergyCell cell = (IEnergyCell) stack.getItem();
+									energy = energy + cell.getEnergy(stack, type, ChannelName);
+								}
+							}
+						}
+					}
+					return energy;
+				}
+			}
 			break;
 		}
-		
-			
 		return 0;
 	}
 	
 	@Override
-	public double fillEnergy(double amount, String ChannelName,
-			Actionable actionable, EnergyType type) {
-		return 0;
+	public double fillEnergy(double amount, String ChannelName, Actionable actionable, EnergyType type) {
+		switch(type){
+		case MJ:
+			if(!(this.storageMJ.contains(new StorageBase(type, ChannelName)))){
+				StorageBase storage = new StorageBase(type, ChannelName);
+				storage.update(grid);
+				this.storageMJ.add(storage);
+			}
+			for(IEnergyGrid g : this.storage){
+				if(g.getEnergyType() == type && g.getChannelName().equals(ChannelName)){
+					amount = g.insertEnergy(amount, actionable);
+				}
+			}
+			for(StorageBase base : this.storageMJ){
+				if(base.equals(new StorageBase(type, ChannelName))){
+					for(ICellContainer container : base.list2){
+						List<IMEInventoryHandler> handlers = container.getCellArray(StorageChannel.ITEMS);
+						for(IMEInventoryHandler handler : handlers){
+							if(amount == 0D)
+								return 0D;
+							if(handler.getClass().getName().equals("appeng.me.storage.DriveWatcher")){
+								try {
+									Field f;
+									f = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("handler");
+									boolean b1 = f.isAccessible();
+									f.setAccessible(true);
+									ICellHandler cellHandler = (ICellHandler) f.get(handler);
+									Field f2 = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("is");
+									boolean b2 = f2.isAccessible();
+									f2.setAccessible(true);
+									if(cellHandler.isCell((ItemStack) f2.get(handler))){
+										handler = cellHandler.getCellInventory((ItemStack) f2.get(handler), StorageChannel.ITEMS);
+									}
+									f.setAccessible(b1);
+									f2.setAccessible(b2);
+								} catch (NoSuchFieldException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								}
+							}else if(handler.getClass().getName().equals("appeng.tile.storage.TileChest$ChestMonitorHandler")){
+								try {
+									Method m = Class.forName("appeng.tile.storage.TileChest$ChestMonitorHandler").getDeclaredMethod("getInternalHandler");
+									boolean b = m.isAccessible();
+									m.setAccessible(true);
+									handler = (IMEInventoryHandler) m.invoke(handler);
+									m.setAccessible(b);
+								} catch (NoSuchMethodException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (InvocationTargetException e) {
+									e.printStackTrace();
+								}
+							}
+							if(handler instanceof IEnergyHandler){
+								ItemStack stack = ((IEnergyHandler) handler).getCell();
+								if(stack.getItem() instanceof IEnergyCell){
+									IEnergyCell cell = (IEnergyCell) stack.getItem();
+									amount = cell.addEnergy(stack, type, ChannelName, amount, actionable);
+								}
+							}
+						}
+					}
+					return amount;
+				}
+			}
+			break;
+		case RF:
+			if(!(this.storageRF.contains(new StorageBase(type, ChannelName)))){
+				StorageBase storage = new StorageBase(type, ChannelName);
+				storage.update(grid);
+				this.storageRF.add(storage);
+			}
+			for(IEnergyGrid g : this.storage){
+				if(g.getEnergyType() == type && g.getChannelName().equals(ChannelName)){
+					amount = g.insertEnergy(amount, actionable);
+				}
+			}
+			for(StorageBase base : this.storageRF){
+				if(base.equals(new StorageBase(type, ChannelName))){
+					for(ICellContainer container : base.list2){
+						List<IMEInventoryHandler> handlers = container.getCellArray(StorageChannel.ITEMS);
+						for(IMEInventoryHandler handler : handlers){
+							if(amount == 0D)
+								return 0D;
+							if(handler.getClass().getName().equals("appeng.me.storage.DriveWatcher")){
+								try {
+									Field f;
+									f = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("handler");
+									boolean b1 = f.isAccessible();
+									f.setAccessible(true);
+									ICellHandler cellHandler = (ICellHandler) f.get(handler);
+									Field f2 = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("is");
+									boolean b2 = f2.isAccessible();
+									f2.setAccessible(true);
+									if(cellHandler.isCell((ItemStack) f2.get(handler))){
+										handler = cellHandler.getCellInventory((ItemStack) f2.get(handler), StorageChannel.ITEMS);
+									}
+									f.setAccessible(b1);
+									f2.setAccessible(b2);
+								} catch (NoSuchFieldException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								}
+							}else if(handler.getClass().getName().equals("appeng.tile.storage.TileChest$ChestMonitorHandler")){
+								try {
+									Method m = Class.forName("appeng.tile.storage.TileChest$ChestMonitorHandler").getDeclaredMethod("getInternalHandler");
+									boolean b = m.isAccessible();
+									m.setAccessible(true);
+									handler = (IMEInventoryHandler) m.invoke(handler);
+									m.setAccessible(b);
+								} catch (NoSuchMethodException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (InvocationTargetException e) {
+									e.printStackTrace();
+								}
+							}
+							if(handler instanceof IEnergyHandler){
+								ItemStack stack = ((IEnergyHandler) handler).getCell();
+								if(stack.getItem() instanceof IEnergyCell){
+									IEnergyCell cell = (IEnergyCell) stack.getItem();
+									amount = cell.addEnergy(stack, type, ChannelName, amount, actionable);
+								}
+							}
+						}
+					}
+					return amount;
+				}
+			}
+			break;
+		case J:
+			if(!(this.storageJ.contains(new StorageBase(type, ChannelName)))){
+				StorageBase storage = new StorageBase(type, ChannelName);
+				storage.update(grid);
+				this.storageJ.add(storage);
+			}
+			for(IEnergyGrid g : this.storage){
+				if(g.getEnergyType() == type && g.getChannelName().equals(ChannelName)){
+					amount = g.insertEnergy(amount, actionable);
+				}
+			}
+			for(StorageBase base : this.storageJ){
+				if(base.equals(new StorageBase(type, ChannelName))){
+					for(ICellContainer container : base.list2){
+						List<IMEInventoryHandler> handlers = container.getCellArray(StorageChannel.ITEMS);
+						for(IMEInventoryHandler handler : handlers){
+							if(amount == 0D)
+								return 0D;
+							if(handler.getClass().getName().equals("appeng.me.storage.DriveWatcher")){
+								try {
+									Field f;
+									f = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("handler");
+									boolean b1 = f.isAccessible();
+									f.setAccessible(true);
+									ICellHandler cellHandler = (ICellHandler) f.get(handler);
+									Field f2 = Class.forName("appeng.me.storage.DriveWatcher").getDeclaredField("is");
+									boolean b2 = f2.isAccessible();
+									f2.setAccessible(true);
+									if(cellHandler.isCell((ItemStack) f2.get(handler))){
+										handler = cellHandler.getCellInventory((ItemStack) f2.get(handler), StorageChannel.ITEMS);
+									}
+									f.setAccessible(b1);
+									f2.setAccessible(b2);
+								} catch (NoSuchFieldException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								}
+							}else if(handler.getClass().getName().equals("appeng.tile.storage.TileChest$ChestMonitorHandler")){
+								try {
+									Method m = Class.forName("appeng.tile.storage.TileChest$ChestMonitorHandler").getDeclaredMethod("getInternalHandler");
+									boolean b = m.isAccessible();
+									m.setAccessible(true);
+									handler = (IMEInventoryHandler) m.invoke(handler);
+									m.setAccessible(b);
+								} catch (NoSuchMethodException e) {
+									e.printStackTrace();
+								} catch (SecurityException e) {
+									e.printStackTrace();
+								} catch (ClassNotFoundException e) {
+									e.printStackTrace();
+								} catch (IllegalAccessException e) {
+									e.printStackTrace();
+								} catch (IllegalArgumentException e) {
+									e.printStackTrace();
+								} catch (InvocationTargetException e) {
+									e.printStackTrace();
+								}
+							}
+							if(handler instanceof IEnergyHandler){
+								ItemStack stack = ((IEnergyHandler) handler).getCell();
+								if(stack.getItem() instanceof IEnergyCell){
+									IEnergyCell cell = (IEnergyCell) stack.getItem();
+									amount = cell.addEnergy(stack, type, ChannelName, amount, actionable);
+								}
+							}
+						}
+					}
+					return amount;
+				}
+			}
+			break;
+		}
+		return amount;
 	}
 	
 	@Override
