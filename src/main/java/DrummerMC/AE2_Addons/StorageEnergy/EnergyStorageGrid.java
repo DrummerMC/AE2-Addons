@@ -563,8 +563,7 @@ public class EnergyStorageGrid implements IEnergyStorageGrid {
 	}
 	
 	@Override
-	public double drainEnergy(double amount, String ChannelName,
-			Actionable actionable, EnergyType type) {
+	public double drainEnergy(double amount, String ChannelName, Actionable actionable, EnergyType type) {
 		return 0;
 	}
 }

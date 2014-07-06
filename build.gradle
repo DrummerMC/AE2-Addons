@@ -27,9 +27,13 @@ minecraft {
     
     replace '@VERSION@', version
 }
-
+repositories {
+    maven { url = "http://maven.cil.li/" }
+}
 dependencies {
     compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
+    compile "appeng:appliedenergistics2:rv0-stable-7:dev"
+    compile group: 'li.cil.oc', name: 'OpenComputers', version: 'MC1.7.2-1.3.0.219-rc.1', classifier: 'api'
 }
 
 sourceSets {
