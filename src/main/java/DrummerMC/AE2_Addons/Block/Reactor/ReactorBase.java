@@ -125,7 +125,7 @@ public class ReactorBase extends MultiblockBase{
 				IMachineSet m = grid.getMachines(TileReactorController.class);
 				if(m.size()==0){
 					if(player instanceof EntityPlayerMP)
-						AE2_Addons.network.sendToAll(new ChatPacket("chat.ae2addons.noController"));
+						AE2_Addons.network.sendTo(new ChatPacket("chat.ae2addons.noController"), (EntityPlayerMP) player);
 					return true;
 				}else if(m.size()>1){
 					if(player instanceof EntityPlayerMP)

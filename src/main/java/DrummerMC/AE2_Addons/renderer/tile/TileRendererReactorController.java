@@ -28,8 +28,9 @@ public class TileRendererReactorController extends TileEntitySpecialRenderer {
 		GL11.glRotatef(90, 1, 0, 0);
 		GL11.glTranslated(-63, -63, 0);
 		FontRenderer font = this.func_147498_b();
+		
 		font.drawSplitString(StatCollector.translateToLocal("render.ae2addons.blockReactorController.ConectedReactors") +
-				" " + tile.conReactor , 0, 0, 127, 1);
+				" " + tile.conReactor , 0, 0, 127, 255);
 		GL11.glPopMatrix();
 	}
 

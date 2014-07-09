@@ -122,8 +122,6 @@ public class PartBase implements IPart, IGridHost{
 
 	@Override
 	public void onNeighborChanged() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

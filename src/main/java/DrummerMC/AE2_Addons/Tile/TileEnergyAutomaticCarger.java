@@ -24,14 +24,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class TileEnergyAutomaticCharger extends TileEntity implements IGridHost, IGridTickable{
+public class TileEnergyAutomaticCarger extends TileEntity implements IGridHost, IGridTickable{
 	
 	private boolean doWork = false;
 	IAEItemStack stackToCharge = null;
 	
 	IGridBlock gridblock;
 	IGridNode node = null;
-	public TileEnergyAutomaticCharger(){
+	public TileEnergyAutomaticCarger(){
 		gridblock = new GridBlockEnergyAutomaticLoader(this);
 	}
 

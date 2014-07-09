@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
-import DrummerMC.AE2_Addons.Tile.TileEnergyAutomaticCharger;
+import DrummerMC.AE2_Addons.Tile.TileEnergyAutomaticCarger;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorBase;
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.GridNotification;
@@ -17,9 +17,9 @@ import appeng.api.util.DimensionalCoord;
 public class GridBlockEnergyAutomaticLoader implements IGridBlock {
     protected IGrid grid;
     protected int usedChannels;
-    protected TileEnergyAutomaticCharger host;
+    protected TileEnergyAutomaticCarger host;
 
-    public GridBlockEnergyAutomaticLoader(TileEnergyAutomaticCharger host) {
+    public GridBlockEnergyAutomaticLoader(TileEnergyAutomaticCarger host) {
     	
         this.host = host;
     }

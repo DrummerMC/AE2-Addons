@@ -2,6 +2,7 @@
 //Chat
 chat.ae2addons.noController=Es muss sich ein ME-Reaktorkontroller im ME-Netzwerk  befinden.
 chat.ae2addons.toManyController=Es darf nur ein ME-Reaktorkontroller im ME-Netzwerk vohanden sein.
+chat.ae2addons.setItem=Du hast das Item number %number% gesetzt.
 
 //Gui
 gui.ae2addons.reactor.button.activate=Aktivieren
@@ -11,6 +12,10 @@ gui.ae2addons.reactor.base=ME-Reaktor
 //Blocks
 tile.ae2addons.reactorcontroller.name=ME-Reaktorkontroller
 tile.ae2addons.reactor.base.name=ME-Reaktor
+tile.ae2addons.carger.name=Automatischer Lader
+
+//Parts
+part.ae2addons.exportinterface.name=Export Schnittstelle
 
 //Creative Tab
 itemGroup.ae2addons=AE2-Addons

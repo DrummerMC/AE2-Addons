@@ -6,9 +6,10 @@ import DrummerMC.AE2_Addons.Block.BlockAENormal;
 import DrummerMC.AE2_Addons.Block.Reactor.BlockReactorController;
 import DrummerMC.AE2_Addons.Block.Reactor.ReactorBase;
 import DrummerMC.AE2_Addons.Item.EnergyCell;
+import DrummerMC.AE2_Addons.Item.ItemBlockNormal;
 import DrummerMC.AE2_Addons.Parts.PartItem;
 import DrummerMC.AE2_Addons.StorageEnergy.EnergyStorageGrid;
-import DrummerMC.AE2_Addons.Tile.TileEnergyAutomaticCharger;
+import DrummerMC.AE2_Addons.Tile.TileEnergyAutomaticCarger;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorBase;
 import DrummerMC.AE2_Addons.Tile.Reactor.TileReactorController;
 import DrummerMC.AE2_Addons.libs.erogenousbeef.core.multiblock.MultiblockEventHandler;
@@ -95,10 +96,10 @@ public class AE2_Addons
     	aeNormalBlock.setCreativeTab(tab);
     	GameRegistry.registerBlock(reactor, "reactor");
     	GameRegistry.registerBlock(reactorController, "reactorController");
-    	GameRegistry.registerBlock(aeNormalBlock, "aeNormalBlock");
+    	GameRegistry.registerBlock(aeNormalBlock, ItemBlockNormal.class, "aeNormalBlock");
     	GameRegistry.registerTileEntity(TileReactorBase.class, "tileReactor");
     	GameRegistry.registerTileEntity(TileReactorController.class, "tileReactorController");
-    	GameRegistry.registerTileEntity(TileEnergyAutomaticCharger.class, "tileEnergyAutomaticCharger");
+    	GameRegistry.registerTileEntity(TileEnergyAutomaticCarger.class, "tileEnergyAutomaticCharger");
     	GameRegistry.registerItem(partItem, "partItem");
     	GameRegistry.registerItem(energyCell, "energyCell");
     }
