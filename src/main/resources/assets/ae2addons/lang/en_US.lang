@@ -14,6 +14,9 @@ tile.ae2addons.reactorcontroller.name=ME Reactorcontroller
 tile.ae2addons.reactor.base.name=ME Reactor
 tile.ae2addons.carger.name=Automatic Carger
 
+//Items
+item.extrastuff.chestholder.name=Chest Holder
+
 //Parts
 part.ae2addons.exportinterface.name=Export Interface
 

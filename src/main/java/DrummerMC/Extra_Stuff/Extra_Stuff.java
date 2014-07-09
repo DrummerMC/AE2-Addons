@@ -5,6 +5,7 @@ import DrummerMC.Extra_Stuff.Api.Grid.IEnergyStorageGrid;
 import DrummerMC.Extra_Stuff.Block.BlockAENormal;
 import DrummerMC.Extra_Stuff.Block.Reactor.BlockReactorController;
 import DrummerMC.Extra_Stuff.Block.Reactor.ReactorBase;
+import DrummerMC.Extra_Stuff.Item.ChestHolder;
 import DrummerMC.Extra_Stuff.Item.EnergyCell;
 import DrummerMC.Extra_Stuff.Item.ItemBlockNormal;
 import DrummerMC.Extra_Stuff.Parts.PartItem;
@@ -24,6 +25,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -42,6 +44,9 @@ public class Extra_Stuff
 {
     public static final String MODID = "extrastuff";
     public static final String VERSION = "@VERSION@";
+    
+    public static Item chestHolder;
+    
     
     public static ReactorBase reactor;
     public static BlockReactorController reactorController;
@@ -64,6 +69,9 @@ public class Extra_Stuff
     
     @EventHandler
     public void preinit(FMLPreInitializationEvent event){
+    	chestHolder = new ChestHolder();
+    	GameRegistry.registerItem(chestHolder, "chestHolder");
+    	
     	API.instance = new APIInstance();
     	tab = new CreativeTabs(MODID) {
     		
@@ -74,34 +82,41 @@ public class Extra_Stuff
 			}
     	    
     	};
+    	chestHolder.setCreativeTab(tab);
     	
     	network = new NetworkHandler();
     }
     
     @EventHandler
     public void init(FMLInitializationEvent event){
-    	AEApi.instance().registries().gridCache().registerGridCache(IEnergyStorageGrid.class, EnergyStorageGrid.class);
-    	OreDictionary.registerOre("ingotUranium", Items.apple);
-    	proxy.init();
-    	partItem = new PartItem();
-    	partItem.setCreativeTab(tab);
-    	energyCell = new EnergyCell();
-    	energyCell.setCreativeTab(tab);
-    	AEApi.instance().partHelper().setItemBusRenderer(partItem);
-    	reactor = new ReactorBase();
-    	reactor.setCreativeTab(tab);
-    	reactorController = new BlockReactorController();
-    	reactorController.setCreativeTab(tab);
-    	aeNormalBlock = new BlockAENormal();
-    	aeNormalBlock.setCreativeTab(tab);
-    	GameRegistry.registerBlock(reactor, "reactor");
-    	GameRegistry.registerBlock(reactorController, "reactorController");
-    	GameRegistry.registerBlock(aeNormalBlock, ItemBlockNormal.class, "aeNormalBlock");
-    	GameRegistry.registerTileEntity(TileReactorBase.class, "tileReactor");
-    	GameRegistry.registerTileEntity(TileReactorController.class, "tileReactorController");
-    	GameRegistry.registerTileEntity(TileEnergyAutomaticCarger.class, "tileEnergyAutomaticCharger");
-    	GameRegistry.registerItem(partItem, "partItem");
-    	GameRegistry.registerItem(energyCell, "energyCell");
+    	
+    	
+    	//AE2 Stuff
+    	if(Loader.isModLoaded("appliedenergistics2")){
+    		AEApi.instance().registries().gridCache().registerGridCache(IEnergyStorageGrid.class, EnergyStorageGrid.class);
+        	OreDictionary.registerOre("ingotUranium", Items.apple);
+        	proxy.init();
+        	partItem = new PartItem();
+        	partItem.setCreativeTab(tab);
+        	energyCell = new EnergyCell();
+        	energyCell.setCreativeTab(tab);
+        	AEApi.instance().partHelper().setItemBusRenderer(partItem);
+        	reactor = new ReactorBase();
+        	reactor.setCreativeTab(tab);
+        	reactorController = new BlockReactorController();
+        	reactorController.setCreativeTab(tab);
+        	aeNormalBlock = new BlockAENormal();
+        	aeNormalBlock.setCreativeTab(tab);
+        	GameRegistry.registerBlock(reactor, "reactor");
+        	GameRegistry.registerBlock(reactorController, "reactorController");
+        	GameRegistry.registerBlock(aeNormalBlock, ItemBlockNormal.class, "aeNormalBlock");
+        	GameRegistry.registerTileEntity(TileReactorBase.class, "tileReactor");
+        	GameRegistry.registerTileEntity(TileReactorController.class, "tileReactorController");
+        	GameRegistry.registerTileEntity(TileEnergyAutomaticCarger.class, "tileEnergyAutomaticCharger");
+        	GameRegistry.registerItem(partItem, "partItem");
+        	GameRegistry.registerItem(energyCell, "energyCell");
+    	}
+    	
     }
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)

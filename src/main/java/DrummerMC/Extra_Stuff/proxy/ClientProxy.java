@@ -17,6 +17,7 @@ import DrummerMC.Extra_Stuff.renderer.tile.TileRendererReactorController;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class ClientProxy extends CommonProxy{
@@ -29,18 +30,21 @@ public class ClientProxy extends CommonProxy{
 	
 	@Override
 	public void registerRenderers(){
-		//Items
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Extra_Stuff.reactor), new ItemRendererReactor());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Extra_Stuff.reactorController), new ItemRendererReactorController());
+		if(Loader.isModLoaded("appliedenergistics2")){
+			//Items
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Extra_Stuff.reactor), new ItemRendererReactor());
+			MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Extra_Stuff.reactorController), new ItemRendererReactorController());
+			
+			//Blocks
+			ReactorBase.renderID = RenderingRegistry.getNextAvailableRenderId();
+			RenderingRegistry.registerBlockHandler(new BlockRendererReactor(ReactorBase.renderID));
+			BlockReactorController.renderID = RenderingRegistry.getNextAvailableRenderId();
+			RenderingRegistry.registerBlockHandler(new BlockRendererReactorController(BlockReactorController.renderID));
+			
+			//TileEntity
+			ClientRegistry.bindTileEntitySpecialRenderer(TileReactorController.class, new TileRendererReactorController());
+		}
 		
-		//Blocks
-		ReactorBase.renderID = RenderingRegistry.getNextAvailableRenderId();
-		RenderingRegistry.registerBlockHandler(new BlockRendererReactor(ReactorBase.renderID));
-		BlockReactorController.renderID = RenderingRegistry.getNextAvailableRenderId();
-		RenderingRegistry.registerBlockHandler(new BlockRendererReactorController(BlockReactorController.renderID));
-		
-		//TileEntity
-		ClientRegistry.bindTileEntitySpecialRenderer(TileReactorController.class, new TileRendererReactorController());
 	}
 
 }
