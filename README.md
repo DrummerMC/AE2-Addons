@@ -1,4 +1,4 @@
-AE2 Extra Stuff [![Build Status](https://drone.io/github.com/DrummerMC/AE2-Addons/status.png)](https://drone.io/github.com/DrummerMC/AE2-Extra-Stuff/files)
+AE2 Extra Stuff [![Build Status](https://drone.io/github.com/DrummerMC/AE2-Extra-Stuff/status.png)](https://drone.io/github.com/DrummerMC/AE2-Extra-Stuff/files)
 ==========
 
 This mod use the code from BeffCore. The code can be find <a href="https://github.com/erogenousbeef/BeefCore/">here.</a>
