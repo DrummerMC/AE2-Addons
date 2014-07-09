@@ -19,7 +19,7 @@ apply plugin: 'forge'
 
 version = "1.7.2-rv0.0.1." + getBuildNumber()
 group= "com.DrummerMC.ae2_addons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "AE2-Extra-Stuff"
+archivesBaseName = "Extra-Stuff"
 
 minecraft {
     version = "1.7.2-10.12.1.1060"
@@ -78,7 +78,7 @@ task deobfJar(type: Jar) {
 task apiJar(type: Jar) {
     from sourceSets.main.output
     appendix = 'api'
-    include 'DrummerMC/AE2_Addons/Api/**'
+    include 'DrummerMC/Extra_Stuff/Api/**'
 }
 
 artifacts {
