@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import DrummerMC.Extra_Stuff.AE2_Addons;
+import DrummerMC.Extra_Stuff.Extra_Stuff;
 import DrummerMC.Extra_Stuff.GrindReactorBlockBase;
 import DrummerMC.Extra_Stuff.Block.Reactor.ReactorMultiblockController;
 import DrummerMC.Extra_Stuff.Tile.TileMultiblockBase;
@@ -128,7 +128,7 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 	}
 
 	public ItemStack getItemStack() {
-		return new ItemStack(AE2_Addons.reactor);
+		return new ItemStack(Extra_Stuff.reactor);
 	}
 
 	@Override

@@ -27,7 +27,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import DrummerMC.Extra_Stuff.AE2_Addons;
+import DrummerMC.Extra_Stuff.Extra_Stuff;
 import DrummerMC.Extra_Stuff.Block.MultiblockBase;
 import DrummerMC.Extra_Stuff.Tile.TileMultiblockBase;
 import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorBase;
@@ -125,15 +125,15 @@ public class ReactorBase extends MultiblockBase{
 				IMachineSet m = grid.getMachines(TileReactorController.class);
 				if(m.size()==0){
 					if(player instanceof EntityPlayerMP)
-						AE2_Addons.network.sendTo(new ChatPacket("chat.ae2addons.noController"), (EntityPlayerMP) player);
+						Extra_Stuff.network.sendTo(new ChatPacket("chat.ae2addons.noController"), (EntityPlayerMP) player);
 					return true;
 				}else if(m.size()>1){
 					if(player instanceof EntityPlayerMP)
-						AE2_Addons.network.sendTo(new ChatPacket("chat.ae2addons.toManyController"), (EntityPlayerMP) player);
+						Extra_Stuff.network.sendTo(new ChatPacket("chat.ae2addons.toManyController"), (EntityPlayerMP) player);
 					return true;
 				}
-				player.openGui(AE2_Addons.instance, 0, world, x, y, z);
-				AE2_Addons.network.sendTo(new ReactorUpdate(x,y,z,world.provider.dimensionId,((ReactorMultiblockController)((TileReactorBase) tile).getController()).isActive), (EntityPlayerMP) player);
+				player.openGui(Extra_Stuff.instance, 0, world, x, y, z);
+				Extra_Stuff.network.sendTo(new ReactorUpdate(x,y,z,world.provider.dimensionId,((ReactorMultiblockController)((TileReactorBase) tile).getController()).isActive), (EntityPlayerMP) player);
 				return true;
 			}
 		}

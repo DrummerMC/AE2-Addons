@@ -7,7 +7,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import DrummerMC.Extra_Stuff.AE2_Addons;
+import DrummerMC.Extra_Stuff.Extra_Stuff;
 import appeng.api.AEApi;
 import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridNode;
@@ -69,7 +69,7 @@ public class TileReactorController extends TileEntity implements IGridHost {
 	}
 
 	public ItemStack getItemStack() {
-		return new ItemStack(AE2_Addons.reactorController);
+		return new ItemStack(Extra_Stuff.reactorController);
 	}
 	
 	@Override

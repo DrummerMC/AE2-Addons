@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
-import DrummerMC.Extra_Stuff.AE2_Addons;
+import DrummerMC.Extra_Stuff.Extra_Stuff;
 import DrummerMC.Extra_Stuff.Block.Reactor.BlockReactorController;
 import DrummerMC.Extra_Stuff.Block.Reactor.ReactorBase;
 import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorController;
@@ -30,8 +30,8 @@ public class ClientProxy extends CommonProxy{
 	@Override
 	public void registerRenderers(){
 		//Items
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AE2_Addons.reactor), new ItemRendererReactor());
-		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(AE2_Addons.reactorController), new ItemRendererReactorController());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Extra_Stuff.reactor), new ItemRendererReactor());
+		MinecraftForgeClient.registerItemRenderer(Item.getItemFromBlock(Extra_Stuff.reactorController), new ItemRendererReactorController());
 		
 		//Blocks
 		ReactorBase.renderID = RenderingRegistry.getNextAvailableRenderId();

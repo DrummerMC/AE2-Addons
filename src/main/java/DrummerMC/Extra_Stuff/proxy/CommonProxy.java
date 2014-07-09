@@ -1,6 +1,6 @@
 package DrummerMC.Extra_Stuff.proxy;
 
-import DrummerMC.Extra_Stuff.AE2_Addons;
+import DrummerMC.Extra_Stuff.Extra_Stuff;
 import DrummerMC.Extra_Stuff.libs.erogenousbeef.core.multiblock.MultiblockServerTickHandler;
 import DrummerMC.Extra_Stuff.network.GuiHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -10,7 +10,7 @@ public class CommonProxy {
 	
 	public void init(){
 		FMLCommonHandler.instance().bus().register(new MultiblockServerTickHandler());
-		NetworkRegistry.INSTANCE.registerGuiHandler(AE2_Addons.instance, new GuiHandler());
+		NetworkRegistry.INSTANCE.registerGuiHandler(Extra_Stuff.instance, new GuiHandler());
 	}
 	
 	//Client Side Only

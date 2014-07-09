@@ -37,10 +37,10 @@ import cpw.mods.fml.relauncher.ServerLaunchWrapper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid = AE2_Addons.MODID, version = AE2_Addons.VERSION)
-public class AE2_Addons
+@Mod(modid = Extra_Stuff.MODID, version = Extra_Stuff.VERSION)
+public class Extra_Stuff
 {
-    public static final String MODID = "ae2addons";
+    public static final String MODID = "extrastuff";
     public static final String VERSION = "@VERSION@";
     
     public static ReactorBase reactor;
@@ -54,11 +54,11 @@ public class AE2_Addons
     
     public static NetworkHandler network;
     
-    @SidedProxy(clientSide = "DrummerMC.AE2_Addons.proxy.ClientProxy", serverSide = "DrummerMC.AE2_Addons.proxy.CommonProxy")
+    @SidedProxy(clientSide = "DrummerMC.Extra_Stuff.proxy.ClientProxy", serverSide = "DrummerMC.Extra_Stuff.proxy.CommonProxy")
     public static CommonProxy proxy;
     
     @Instance(MODID)
-    public static AE2_Addons instance;
+    public static Extra_Stuff instance;
     
     public static  CreativeTabs tab;
     

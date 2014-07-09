@@ -3,7 +3,7 @@ package DrummerMC.Extra_Stuff.renderer.block;
 import org.lwjgl.opengl.GL11;
 
 import appeng.api.AEApi;
-import DrummerMC.Extra_Stuff.AE2_Addons;
+import DrummerMC.Extra_Stuff.Extra_Stuff;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -27,7 +27,7 @@ public class BlockRendererReactor implements ISimpleBlockRenderingHandler {
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z,
 			Block block, int modelId, RenderBlocks renderer) {
-		if(AE2_Addons.reactor.getIcon(0, 0) == AE2_Addons.reactor.getIcon(world, x, y, z, 0)){
+		if(Extra_Stuff.reactor.getIcon(0, 0) == Extra_Stuff.reactor.getIcon(world, x, y, z, 0)){
 			return renderer.renderStandardBlock(block, x, y, z);
 		}else{
 			renderer.renderStandardBlock(AEApi.instance().blocks().blockQuartz.block(), x, y, z);

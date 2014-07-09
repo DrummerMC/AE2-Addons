@@ -22,7 +22,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import DrummerMC.Extra_Stuff.AE2_Addons;
+import DrummerMC.Extra_Stuff.Extra_Stuff;
 import DrummerMC.Extra_Stuff.Api.Grid.IEnergyGrid;
 import DrummerMC.Extra_Stuff.Api.Grid.IEnergyStorageGrid;
 import DrummerMC.Extra_Stuff.Api.Util.EnergyType;
@@ -51,7 +51,7 @@ public class PartBase implements IPart, IGridHost{
 	
 	@Override
 	public ItemStack getItemStack(PartItemStack type) {
-		return new ItemStack(AE2_Addons.partItem);
+		return new ItemStack(Extra_Stuff.partItem);
 	}
 	
 	@SideOnly(Side.CLIENT)

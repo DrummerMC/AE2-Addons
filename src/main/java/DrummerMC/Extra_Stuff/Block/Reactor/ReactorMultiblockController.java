@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.events.MENetworkPowerStorage;
-import DrummerMC.Extra_Stuff.AE2_Addons;
+import DrummerMC.Extra_Stuff.Extra_Stuff;
 import DrummerMC.Extra_Stuff.Tile.TileMultiblockBase;
 import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorBase;
 import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorController;
@@ -47,7 +47,7 @@ public class ReactorMultiblockController extends
 	
 	public void changeIsActive(){
 		this.isActive = !this.isActive;
-		AE2_Addons.network.sendToDimension(new ReactorUpdate(this.getMaximumXSize(),
+		Extra_Stuff.network.sendToDimension(new ReactorUpdate(this.getMaximumXSize(),
 				this.getMaximumYSize(),
 				this.getMaximumZSize(),
 				this.worldObj.provider.dimensionId,

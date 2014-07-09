@@ -13,7 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.common.util.ForgeDirection;
-import DrummerMC.Extra_Stuff.AE2_Addons;
+import DrummerMC.Extra_Stuff.Extra_Stuff;
 import DrummerMC.Extra_Stuff.Api.Grid.IEnergyStorageGrid;
 import DrummerMC.Extra_Stuff.Api.Util.EnergyType;
 import DrummerMC.Extra_Stuff.network.ChatPacket;
@@ -39,7 +39,7 @@ public class PartExInterface extends PartBase implements IGridTickable{
 	
 	@Override
 	public ItemStack getItemStack(PartItemStack type) {
-		return new ItemStack(AE2_Addons.partItem, 1, 2);
+		return new ItemStack(Extra_Stuff.partItem, 1, 2);
 	}
 
 	@Override
@@ -206,7 +206,7 @@ public class PartExInterface extends PartBase implements IGridTickable{
 		else
 			this.inv[last] = null;
 		last = last + 1;
-		AE2_Addons.network.sendTo(new ChatPacket("chat.ae2addons.setItem", last), (EntityPlayerMP) player);
+		Extra_Stuff.network.sendTo(new ChatPacket("chat.ae2addons.setItem", last), (EntityPlayerMP) player);
 		if(last == 9)
 			last = 0;
 		return true;
@@ -215,7 +215,7 @@ public class PartExInterface extends PartBase implements IGridTickable{
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderInventory(IPartRenderHelper rh, RenderBlocks renderer) {
-		rh.setTexture(AE2_Addons.partItem.getIconFromDamage(2));
+		rh.setTexture(Extra_Stuff.partItem.getIconFromDamage(2));
 		rh.setBounds(2, 2, 14, 14, 14, 16);
 		rh.renderInventoryBox(renderer);
 
@@ -225,7 +225,7 @@ public class PartExInterface extends PartBase implements IGridTickable{
 	@Override
 	public void renderStatic(int x, int y, int z, IPartRenderHelper rh,
 			RenderBlocks renderer) {
-		rh.setTexture(AE2_Addons.partItem.getIconFromDamage(2));
+		rh.setTexture(Extra_Stuff.partItem.getIconFromDamage(2));
 		rh.setBounds(2, 2, 14, 14, 14, 16);
 		rh.renderBlock(x, y, z, renderer);
 

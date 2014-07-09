@@ -2,7 +2,7 @@ package DrummerMC.Extra_Stuff.Gui;
 
 import org.lwjgl.opengl.GL11;
 
-import DrummerMC.Extra_Stuff.AE2_Addons;
+import DrummerMC.Extra_Stuff.Extra_Stuff;
 import DrummerMC.Extra_Stuff.Block.Reactor.ReactorMultiblockController;
 import DrummerMC.Extra_Stuff.Container.ContainerReactorBase;
 import DrummerMC.Extra_Stuff.network.ReactorUpdate;
@@ -49,7 +49,7 @@ public class GuiReactorBase extends GuiContainer {
 	
 	protected void actionPerformed(GuiButton guibutton) {
 		ContainerReactorBase c = (ContainerReactorBase) con;
-		AE2_Addons.network.sendToServer(new ReactorUpdate(c.tile.xCoord,c.tile.yCoord,c.tile.zCoord,c.tile.getWorldObj().provider.dimensionId,guibutton.id));
+		Extra_Stuff.network.sendToServer(new ReactorUpdate(c.tile.xCoord,c.tile.yCoord,c.tile.zCoord,c.tile.getWorldObj().provider.dimensionId,guibutton.id));
 	}
 
 	 @Override
