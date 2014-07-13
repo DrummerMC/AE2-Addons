@@ -2,6 +2,8 @@ package DrummerMC.Extra_Stuff.Parts;
 
 import java.util.List;
 
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -17,6 +19,7 @@ import appeng.api.AEApi;
 import appeng.api.parts.IPart;
 import appeng.api.parts.IPartItem;
 
+@Optional.InterfaceList(value = { @Interface(iface = "appeng.api.parts.IPartItem", modid = "appliedenergistics2")})
 public class PartItem extends Item implements IPartItem {
 	
 	@SideOnly(Side.CLIENT)
@@ -26,6 +29,7 @@ public class PartItem extends Item implements IPartItem {
 		this.setUnlocalizedName("ae2addons.part");
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public IPart createPartFromItemStack(ItemStack stack) {
 		if(stack.getItemDamage() == 0)
@@ -38,6 +42,7 @@ public class PartItem extends Item implements IPartItem {
 		return null;
 	}
 	
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getSpriteNumber()

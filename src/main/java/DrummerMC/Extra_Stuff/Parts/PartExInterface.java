@@ -1,5 +1,7 @@
 package DrummerMC.Extra_Stuff.Parts;
 
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -29,6 +31,7 @@ import appeng.api.parts.IPartRenderHelper;
 import appeng.api.parts.PartItemStack;
 import appeng.api.storage.data.IAEItemStack;
 
+@Optional.InterfaceList(value = { @Interface(iface = "appeng.api.networking.ticking.IGridTickable", modid = "appliedenergistics2")})
 public class PartExInterface extends PartBase implements IGridTickable{
 	
 	public ItemStack[] inv = new ItemStack[9];
@@ -37,16 +40,19 @@ public class PartExInterface extends PartBase implements IGridTickable{
 	
 	private boolean hasWork = false;
 	
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public ItemStack getItemStack(PartItemStack type) {
 		return new ItemStack(Extra_Stuff.partItem, 1, 2);
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public TickingRequest getTickingRequest(IGridNode node) {
 		return new TickingRequest(1, 200, false, false);
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public TickRateModulation tickingRequest(IGridNode node, int TicksSinceLastCall) {
 		if(this.getGridNode() != null){
@@ -162,6 +168,7 @@ public class PartExInterface extends PartBase implements IGridTickable{
 		return TickRateModulation.IDLE;
 	}
 	
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public void writeToNBT(NBTTagCompound data) {
 		data.setInteger("last", last);
@@ -180,6 +187,7 @@ public class PartExInterface extends PartBase implements IGridTickable{
 		}
 	}
 	
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public void readFromNBT(NBTTagCompound data) {
 		if(data.hasKey("last"))
@@ -195,6 +203,7 @@ public class PartExInterface extends PartBase implements IGridTickable{
 		}
 	}
 	
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public boolean onActivate(EntityPlayer player, Vec3 pos) {
 		if(player.worldObj.isRemote)
@@ -212,6 +221,7 @@ public class PartExInterface extends PartBase implements IGridTickable{
 		return true;
 	}
 	
+	@Optional.Method(modid = "appliedenergistics2")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderInventory(IPartRenderHelper rh, RenderBlocks renderer) {
@@ -221,6 +231,7 @@ public class PartExInterface extends PartBase implements IGridTickable{
 
 	}
 	
+	@Optional.Method(modid = "appliedenergistics2")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderStatic(int x, int y, int z, IPartRenderHelper rh,

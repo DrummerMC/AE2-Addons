@@ -1,5 +1,7 @@
 package DrummerMC.Extra_Stuff.Tile;
 
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 import DrummerMC.Extra_Stuff.GridBlock.GridBlockEnergyAutomaticLoader;
 import appeng.api.AEApi;
 import appeng.api.config.Actionable;
@@ -24,6 +26,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
+@Optional.InterfaceList(value = { @Interface(iface = "appeng.api.networking.ticking.IGridTickable", modid = "appliedenergistics2"),
+		@Interface(iface = "appeng.api.networking.IGridHost", modid = "appliedenergistics2")})
 public class TileEnergyAutomaticCarger extends TileEntity implements IGridHost, IGridTickable{
 	
 	private boolean doWork = false;
@@ -35,6 +39,7 @@ public class TileEnergyAutomaticCarger extends TileEntity implements IGridHost, 
 		gridblock = new GridBlockEnergyAutomaticLoader(this);
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public IGridNode getGridNode(ForgeDirection dir) {
 		if(this.worldObj.isRemote)
@@ -46,14 +51,17 @@ public class TileEnergyAutomaticCarger extends TileEntity implements IGridHost, 
 		return node;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public AECableType getCableConnectionType(ForgeDirection dir) {
 		return AECableType.SMART;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public void securityBreak() {}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	public DimensionalCoord getLocation() {
 		return new DimensionalCoord(this);
 	}
@@ -139,11 +147,13 @@ public class TileEnergyAutomaticCarger extends TileEntity implements IGridHost, 
 		
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public TickingRequest getTickingRequest(IGridNode node) {
 		return new TickingRequest(20, 200, false, false);
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public TickRateModulation tickingRequest(IGridNode node, int TicksSinceLastCall) {
 		tick();

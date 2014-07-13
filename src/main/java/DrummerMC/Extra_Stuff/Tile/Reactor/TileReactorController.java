@@ -1,5 +1,7 @@
 package DrummerMC.Extra_Stuff.Tile.Reactor;
 
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -14,6 +16,7 @@ import appeng.api.networking.IGridNode;
 import appeng.api.util.AECableType;
 import appeng.api.util.DimensionalCoord;
 
+@Optional.InterfaceList(value = { @Interface(iface = "appeng.api.networking.IGridHost", modid = "appliedenergistics2")})
 public class TileReactorController extends TileEntity implements IGridHost {
 	
 	IGridNode node =null;
@@ -29,6 +32,7 @@ public class TileReactorController extends TileEntity implements IGridHost {
 		this.grid = new GridReactorBlockController(this);
 	}
 	
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public IGridNode getGridNode(ForgeDirection dir) {
 		if(this.worldObj.isRemote)
@@ -56,14 +60,17 @@ public class TileReactorController extends TileEntity implements IGridHost {
 		}
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public AECableType getCableConnectionType(ForgeDirection dir) {
 		return AECableType.SMART;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public void securityBreak() {}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	public DimensionalCoord getLocation() {
 		return new DimensionalCoord(this);
 	}
@@ -72,6 +79,7 @@ public class TileReactorController extends TileEntity implements IGridHost {
 		return new ItemStack(Extra_Stuff.reactorController);
 	}
 	
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public Packet getDescriptionPacket() {
 		NBTTagCompound packetData = new NBTTagCompound();

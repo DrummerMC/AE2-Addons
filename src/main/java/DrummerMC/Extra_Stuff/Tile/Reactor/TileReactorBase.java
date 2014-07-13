@@ -1,5 +1,7 @@
 package DrummerMC.Extra_Stuff.Tile.Reactor;
 
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 import appeng.api.AEApi;
 import appeng.api.config.AccessRestriction;
 import appeng.api.config.Actionable;
@@ -21,6 +23,8 @@ import DrummerMC.Extra_Stuff.Block.Reactor.ReactorMultiblockController;
 import DrummerMC.Extra_Stuff.Tile.TileMultiblockBase;
 import DrummerMC.Extra_Stuff.libs.erogenousbeef.core.multiblock.MultiblockControllerBase;
 
+@Optional.InterfaceList(value = { @Interface(iface = "appeng.api.networking.energy.IAEPowerStorage", modid = "appliedenergistics2"),
+		@Interface(iface = "appeng.api.networking.IGridHost", modid = "appliedenergistics2")})
 public class TileReactorBase extends TileMultiblockBase implements IAEPowerStorage, IGridHost{
 	
 	public IGridBlock gridBlock;
@@ -43,9 +47,8 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
         super.readFromNBT(data);
       
     }
-  
-   
 
+    @Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public double extractAEPower(double amt, Actionable mode,
 			PowerMultiplier usePowerMultiplier) {
@@ -69,16 +72,19 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 		}
 	}
 
+    @Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public double injectAEPower(double amt, Actionable mode) {
 		return 0;
 	}
 
+    @Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public double getAEMaxPower() {
 		return 16000;
 	}
 
+    @Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public double getAECurrentPower() {
 		if(this.hasController()){
@@ -88,16 +94,19 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 		}
 	}
 
+    @Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public boolean isAEPublicPowerStorage() {
 		return true;
 	}
 
+    @Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public AccessRestriction getPowerFlow() {
 		return AccessRestriction.READ;
 	}
 
+    @Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public IGridNode getGridNode(ForgeDirection dir) {
 		if(this.node == null){
@@ -113,16 +122,19 @@ public class TileReactorBase extends TileMultiblockBase implements IAEPowerStora
 		return this.node;
 	}
 
+    @Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public AECableType getCableConnectionType(ForgeDirection dir) {
 		return AECableType.DENSE;
 	}
 
+    @Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public void securityBreak() {
 		
 	}
 
+    @Optional.Method(modid = "appliedenergistics2")
 	public DimensionalCoord getLocation() {
 		return new DimensionalCoord(this);
 	}

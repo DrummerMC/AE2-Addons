@@ -2,6 +2,8 @@ package DrummerMC.Extra_Stuff.Item;
 
 import java.util.List;
 
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -23,6 +25,8 @@ import appeng.api.storage.IMEInventoryHandler;
 import appeng.api.storage.StorageChannel;
 import appeng.api.util.AECableType;
 
+@Optional.InterfaceList(value = { @Interface(iface = "appeng.api.storage.ICellHandler", modid = "appliedenergistics2"),
+		@Interface(iface = "DrummerMC.Extra_Stuff.Api.IEnergyCell", modid = "appliedenergistics2")})
 public class EnergyCell extends Item implements ICellHandler, IEnergyCell{
 	
 	public EnergyCell(){
@@ -30,6 +34,7 @@ public class EnergyCell extends Item implements ICellHandler, IEnergyCell{
 		this.setUnlocalizedName("ae2addons.energyCell");
 	}
 	
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public boolean isCell(ItemStack is) {
 		if(is.getItem() instanceof IEnergyCell)
@@ -37,6 +42,7 @@ public class EnergyCell extends Item implements ICellHandler, IEnergyCell{
 		return false;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public IMEInventoryHandler getCellInventory(ItemStack is, StorageChannel channel) {
 		System.out.println("test");
@@ -47,11 +53,13 @@ public class EnergyCell extends Item implements ICellHandler, IEnergyCell{
 		return new MEInventoryHandlerEnergy(is);
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public IIcon getTopTexture() {
 		return null;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public void openChestGui(EntityPlayer player, IChestOrDrive chest,
 			ICellHandler cellHandler, IMEInventoryHandler inv, ItemStack is,
@@ -59,16 +67,19 @@ public class EnergyCell extends Item implements ICellHandler, IEnergyCell{
 
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public int getStatusForCell(ItemStack is, IMEInventory handler) {
 		return 1;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public double cellIdleDrain(ItemStack is, IMEInventory handler) {
 		return 1;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public double getEnergy(ItemStack is, EnergyType type, String ChannelName) {
 		if(is.hasTagCompound()){
@@ -84,11 +95,13 @@ public class EnergyCell extends Item implements ICellHandler, IEnergyCell{
 		return 0;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public double getMaxEnergy(ItemStack is, EnergyType type, String ChannelName) {
 		return 16000;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public double addEnergy(ItemStack is, EnergyType type, String ChannelName, double amount, Actionable action) {
 		if(this.getMaxEnergy(is, type, ChannelName)>=this.getEnergy(is, type, ChannelName)+amount){
@@ -103,6 +116,7 @@ public class EnergyCell extends Item implements ICellHandler, IEnergyCell{
 		return 0;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public double removeEnergy(ItemStack is, EnergyType type, String ChannelName, double amount, Actionable action) {
 		if(this.getEnergy(is, type, ChannelName)>= amount){
@@ -117,6 +131,7 @@ public class EnergyCell extends Item implements ICellHandler, IEnergyCell{
 		}
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public boolean useDefaultEnergyStorageHandler(ItemStack is) {
 		return true;

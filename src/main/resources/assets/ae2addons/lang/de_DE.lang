@@ -13,6 +13,7 @@ gui.ae2addons.reactor.base=ME-Reaktor
 tile.ae2addons.reactorcontroller.name=ME-Reaktorkontroller
 tile.ae2addons.reactor.base.name=ME-Reaktor
 tile.ae2addons.carger.name=Automatischer Lader
+tile.extrastuff.solarfurnace.idle.name=Solar Ofen
 
 //Items
 item.extrastuff.chestholder.name=Kisten halter
@@ -21,7 +22,7 @@ item.extrastuff.chestholder.name=Kisten halter
 part.ae2addons.exportinterface.name=Export Schnittstelle
 
 //Creative Tab
-itemGroup.ae2addons=AE2-Addons
+itemGroup.extrastuff=Extra Stuff
 
 //Font in World
 render.ae2addons.blockReactorController.ConectedReactors=Verbundene Reaktoren:

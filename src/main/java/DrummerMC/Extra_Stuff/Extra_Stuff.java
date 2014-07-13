@@ -1,8 +1,10 @@
 package DrummerMC.Extra_Stuff;
 
 import appeng.api.AEApi;
+import appeng.api.parts.IPartItem;
 import DrummerMC.Extra_Stuff.Api.Grid.IEnergyStorageGrid;
 import DrummerMC.Extra_Stuff.Block.BlockAENormal;
+import DrummerMC.Extra_Stuff.Block.BlockSolarFurnace;
 import DrummerMC.Extra_Stuff.Block.Reactor.BlockReactorController;
 import DrummerMC.Extra_Stuff.Block.Reactor.ReactorBase;
 import DrummerMC.Extra_Stuff.Item.ChestHolder;
@@ -11,11 +13,13 @@ import DrummerMC.Extra_Stuff.Item.ItemBlockNormal;
 import DrummerMC.Extra_Stuff.Parts.PartItem;
 import DrummerMC.Extra_Stuff.StorageEnergy.EnergyStorageGrid;
 import DrummerMC.Extra_Stuff.Tile.TileEnergyAutomaticCarger;
+import DrummerMC.Extra_Stuff.Tile.TileSolarFurnace;
 import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorBase;
 import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorController;
 import DrummerMC.Extra_Stuff.libs.erogenousbeef.core.multiblock.MultiblockEventHandler;
 import DrummerMC.Extra_Stuff.network.NetworkHandler;
 import DrummerMC.Extra_Stuff.proxy.CommonProxy;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
@@ -29,6 +33,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -47,12 +52,15 @@ public class Extra_Stuff
     
     public static Item chestHolder;
     
+    public static Block solarFurnaceBurn;
+    public static Block solarFurnaceIdle;
     
     public static ReactorBase reactor;
     public static BlockReactorController reactorController;
     public static BlockAENormal aeNormalBlock;
     
-    public static PartItem partItem;
+    
+    public static Item partItem;
     public static EnergyCell energyCell;
     
     private MultiblockEventHandler multiblockEventHandler;
@@ -69,8 +77,10 @@ public class Extra_Stuff
     
     @EventHandler
     public void preinit(FMLPreInitializationEvent event){
+    	System.err.println("test");
     	chestHolder = new ChestHolder();
     	GameRegistry.registerItem(chestHolder, "chestHolder");
+    	
     	
     	API.instance = new APIInstance();
     	tab = new CreativeTabs(MODID) {
@@ -78,10 +88,17 @@ public class Extra_Stuff
     		@SideOnly(Side.CLIENT)
 			@Override
 			public Item getTabIconItem() {
-				return Item.getItemFromBlock(reactor);
+				return Item.getItemFromBlock(solarFurnaceIdle);
 			}
     	    
     	};
+    	this.solarFurnaceBurn = new BlockSolarFurnace(true).setHardness(3.5F).setStepSound(Block.soundTypePiston).setBlockName("extrastuff.solarfurnace.burn");
+    	this.solarFurnaceIdle = new BlockSolarFurnace(false).setHardness(3.5F).setStepSound(Block.soundTypePiston).setBlockName("extrastuff.solarfurnace.idle").setCreativeTab(tab);
+    	GameRegistry.registerBlock(solarFurnaceBurn, "solarfurnaceburn");
+    	GameRegistry.registerBlock(solarFurnaceIdle, "solarfurnaceidle");
+    	
+    	GameRegistry.registerTileEntity(TileSolarFurnace.class, "tilesolarfurnace");
+    	
     	chestHolder.setCreativeTab(tab);
     	
     	network = new NetworkHandler();
@@ -90,17 +107,17 @@ public class Extra_Stuff
     @EventHandler
     public void init(FMLInitializationEvent event){
     	
-    	
+    	proxy.init();
     	//AE2 Stuff
     	if(Loader.isModLoaded("appliedenergistics2")){
     		AEApi.instance().registries().gridCache().registerGridCache(IEnergyStorageGrid.class, EnergyStorageGrid.class);
         	OreDictionary.registerOre("ingotUranium", Items.apple);
-        	proxy.init();
+        	
         	partItem = new PartItem();
         	partItem.setCreativeTab(tab);
         	energyCell = new EnergyCell();
         	energyCell.setCreativeTab(tab);
-        	AEApi.instance().partHelper().setItemBusRenderer(partItem);
+        	AEApi.instance().partHelper().setItemBusRenderer((IPartItem) partItem);
         	reactor = new ReactorBase();
         	reactor.setCreativeTab(tab);
         	reactorController = new BlockReactorController();
