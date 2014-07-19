@@ -54,7 +54,6 @@ public class EnergyCell extends Item implements ICellHandler, IEnergyCell{
 	}
 
 	@Optional.Method(modid = "appliedenergistics2")
-	@Override
 	public IIcon getTopTexture() {
 		return null;
 	}
@@ -149,5 +148,23 @@ public class EnergyCell extends Item implements ICellHandler, IEnergyCell{
 	    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
 		 list.add(""+this.getEnergy(stack, EnergyType.MJ, "default"));
 	 }
+
+	 @Optional.Method(modid = "appliedenergistics2")
+	@Override
+	public IIcon getTopTexture_Light() {
+		return this.getTopTexture();
+	}
+
+	 @Optional.Method(modid = "appliedenergistics2")
+	@Override
+	public IIcon getTopTexture_Medium() {
+		return this.getTopTexture();
+	}
+
+	@Optional.Method(modid = "appliedenergistics2")
+	@Override
+	public IIcon getTopTexture_Dark() {
+		return this.getTopTexture();
+	}
 
 }
