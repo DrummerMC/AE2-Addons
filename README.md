@@ -1,4 +1,4 @@
-AE2 Extra Stuff [![Build Status](https://drone.io/github.com/DrummerMC/AE2-Extra-Stuff/status.png)](https://drone.io/github.com/DrummerMC/AE2-Extra-Stuff/files)
+Extra Stuff [![Build Status](https://drone.io/github.com/DrummerMC/Extra-Stuff/status.png)](https://drone.io/github.com/DrummerMC/Extra-Stuff/files)
 ==========
 
 This mod use the code from BeffCore. The code can be find <a href="https://github.com/erogenousbeef/BeefCore/">here.</a>
@@ -11,4 +11,4 @@ Download the last version of <a href="http://files.minecraftforge.net/">Minecraf
 Download
 ==========
 
-Download can be found <a href="https://drone.io/github.com/DrummerMC/AE2-Addons/files">here</a>.
+Download can be found <a href="https://drone.io/github.com/DrummerMC/Extra-Stuff/files">here</a>.
