@@ -22,7 +22,7 @@ group= "com.DrummerMC.ae2_addons" // http://maven.apache.org/guides/mini/guide-n
 archivesBaseName = "Extra-Stuff"
 
 minecraft {
-    version = "1.7.2-10.12.1.1060"
+    version = "1.7.10-10.13.0.1180"
     assetDir = "eclipse/assets"
     
     replace '@VERSION@', version
@@ -31,8 +31,8 @@ repositories {
     maven { url = "http://maven.cil.li/" }
 }
 dependencies {
-    compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    compile group: 'li.cil.oc', name: 'OpenComputers', version: 'MC1.7.2-1.3.0.219-rc.1', classifier: 'api'
+    compile 'com.mod-buildcraft:buildcraft:6.0.17:dev'
+    compile group: 'li.cil.oc', name: 'OpenComputers', version: 'MC1.7.10-1.3.1.33', classifier: 'api'
 }
 
 sourceSets {

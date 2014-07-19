@@ -85,4 +85,10 @@ public class MEInventoryHandlerEnergy implements IMEInventoryHandler, IEnergyHan
 		return this.stack;
 	}
 
+	@Optional.Method(modid = "appliedenergistics2")
+	@Override
+	public boolean validForPass(int i) {
+		return true;
+	}
+
 }
