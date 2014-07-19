@@ -1,6 +1,3 @@
-[submodule "src/api/java/appeng/api"]
-	path = src/api/java/appeng/api
-	url = https://github.com/AlgorithmX2/Applied-Energistics-2-API.git
 [submodule "src/main/java/DrummerMC/Extra_Stuff/Api"]
 	path = src/main/java/DrummerMC/Extra_Stuff/Api
 	url = https://github.com/DrummerMC/Extra-Stuff-API.git
