@@ -1,4 +1,4 @@
-package DrummerMC.Extra_Stuff.Tile.Reactor;
+package DrummerMC.Extra_Stuff.GridBlock;
 
 import java.util.EnumSet;
 
@@ -21,26 +21,27 @@ import appeng.api.util.AEColor;
 import appeng.api.util.DimensionalCoord;
 
 @Optional.InterfaceList(value = { @Interface(iface = "appeng.api.networking.IGridBlock", modid = "appliedenergistics2")})
-public class GridReactorBlockController implements IGridBlock{
+public class GrindReactorBlockBase implements IGridBlock{
 	protected AEColor color;
     protected IGrid grid;
     protected int usedChannels;
-    protected TileReactorController host;
-    
-    public GridReactorBlockController(TileReactorController _host) {
+    protected TileReactorBase host;
+
+    public GrindReactorBlockBase(TileReactorBase _host) {
+    	
         host = _host;
     }
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public double getIdlePowerUsage() {
-        return 8D;
+        return 0D;
     }
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public EnumSet<GridFlags> getFlags() {
-        return EnumSet.of(GridFlags.REQUIRE_CHANNEL);
+        return EnumSet.of(GridFlags.TIER_2_CAPACITY);
     }
 
     @Optional.Method(modid = "appliedenergistics2")
@@ -63,7 +64,8 @@ public class GridReactorBlockController implements IGridBlock{
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
-    public void onGridNotification(GridNotification notification) {}
+    public void onGridNotification(GridNotification notification) {
+    }
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
@@ -86,7 +88,9 @@ public class GridReactorBlockController implements IGridBlock{
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
-    public void gridChanged() {}
+    public void gridChanged() {
+    	
+    }
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override

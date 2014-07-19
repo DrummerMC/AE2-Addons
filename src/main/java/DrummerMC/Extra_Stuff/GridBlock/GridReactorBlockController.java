@@ -1,4 +1,4 @@
-package DrummerMC.Extra_Stuff;
+package DrummerMC.Extra_Stuff.GridBlock;
 
 import java.util.EnumSet;
 
@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.ForgeDirection;
 import DrummerMC.Extra_Stuff.Block.Reactor.ReactorBase;
 import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorBase;
+import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorController;
 import appeng.api.AEApi;
 import appeng.api.networking.GridFlags;
 import appeng.api.networking.GridNotification;
@@ -21,27 +22,26 @@ import appeng.api.util.AEColor;
 import appeng.api.util.DimensionalCoord;
 
 @Optional.InterfaceList(value = { @Interface(iface = "appeng.api.networking.IGridBlock", modid = "appliedenergistics2")})
-public class GrindReactorBlockBase implements IGridBlock{
+public class GridReactorBlockController implements IGridBlock{
 	protected AEColor color;
     protected IGrid grid;
     protected int usedChannels;
-    protected TileReactorBase host;
-
-    public GrindReactorBlockBase(TileReactorBase _host) {
-    	
+    protected TileReactorController host;
+    
+    public GridReactorBlockController(TileReactorController _host) {
         host = _host;
     }
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public double getIdlePowerUsage() {
-        return 0D;
+        return 8D;
     }
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public EnumSet<GridFlags> getFlags() {
-        return EnumSet.of(GridFlags.TIER_2_CAPACITY);
+        return EnumSet.of(GridFlags.REQUIRE_CHANNEL);
     }
 
     @Optional.Method(modid = "appliedenergistics2")
@@ -64,8 +64,7 @@ public class GrindReactorBlockBase implements IGridBlock{
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
-    public void onGridNotification(GridNotification notification) {
-    }
+    public void onGridNotification(GridNotification notification) {}
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
@@ -88,9 +87,7 @@ public class GrindReactorBlockBase implements IGridBlock{
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override
-    public void gridChanged() {
-    	
-    }
+    public void gridChanged() {}
 
     @Optional.Method(modid = "appliedenergistics2")
     @Override

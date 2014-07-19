@@ -196,7 +196,8 @@ public class PartBase implements IPart, IGridHost{
 	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public void removeFromWorld() {
-
+		if(this.getGridNode() != null)
+			this.getGridNode().destroy();
 	}
 
 	@Optional.Method(modid = "appliedenergistics2")

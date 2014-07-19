@@ -93,5 +93,5 @@ def getBuildNumber() {
     else if ("$System.env.BUILD_NUMBER" != "null"){
         return "ci."+"$System.env.BUILD_NUMBER"
     }
-    return "1"
+    return "2"
 }

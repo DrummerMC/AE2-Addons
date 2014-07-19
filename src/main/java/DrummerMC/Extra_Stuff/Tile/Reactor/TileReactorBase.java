@@ -18,8 +18,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 import DrummerMC.Extra_Stuff.Extra_Stuff;
-import DrummerMC.Extra_Stuff.GrindReactorBlockBase;
 import DrummerMC.Extra_Stuff.Block.Reactor.ReactorMultiblockController;
+import DrummerMC.Extra_Stuff.GridBlock.GrindReactorBlockBase;
 import DrummerMC.Extra_Stuff.Tile.TileMultiblockBase;
 import DrummerMC.Extra_Stuff.libs.erogenousbeef.core.multiblock.MultiblockControllerBase;
 

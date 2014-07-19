@@ -4,6 +4,7 @@ import appeng.api.AEApi;
 import appeng.api.parts.IPartItem;
 import DrummerMC.Extra_Stuff.Api.Grid.IEnergyStorageGrid;
 import DrummerMC.Extra_Stuff.Block.BlockAENormal;
+import DrummerMC.Extra_Stuff.Block.BlockNetworkSwitch;
 import DrummerMC.Extra_Stuff.Block.BlockSolarFurnace;
 import DrummerMC.Extra_Stuff.Block.Reactor.BlockReactorController;
 import DrummerMC.Extra_Stuff.Block.Reactor.ReactorBase;
@@ -13,6 +14,7 @@ import DrummerMC.Extra_Stuff.Item.ItemBlockNormal;
 import DrummerMC.Extra_Stuff.Parts.PartItem;
 import DrummerMC.Extra_Stuff.StorageEnergy.EnergyStorageGrid;
 import DrummerMC.Extra_Stuff.Tile.TileEnergyAutomaticCarger;
+import DrummerMC.Extra_Stuff.Tile.TileNetworkSwitch;
 import DrummerMC.Extra_Stuff.Tile.TileSolarFurnace;
 import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorBase;
 import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorController;
@@ -58,6 +60,7 @@ public class Extra_Stuff
     public static ReactorBase reactor;
     public static BlockReactorController reactorController;
     public static BlockAENormal aeNormalBlock;
+    public static Block networkSwitch;
     
     
     public static Item partItem;
@@ -124,12 +127,15 @@ public class Extra_Stuff
         	reactorController.setCreativeTab(tab);
         	aeNormalBlock = new BlockAENormal();
         	aeNormalBlock.setCreativeTab(tab);
+        	networkSwitch = new BlockNetworkSwitch().setCreativeTab(tab);
         	GameRegistry.registerBlock(reactor, "reactor");
         	GameRegistry.registerBlock(reactorController, "reactorController");
         	GameRegistry.registerBlock(aeNormalBlock, ItemBlockNormal.class, "aeNormalBlock");
+        	GameRegistry.registerBlock(networkSwitch, "networkSwitch");
         	GameRegistry.registerTileEntity(TileReactorBase.class, "tileReactor");
         	GameRegistry.registerTileEntity(TileReactorController.class, "tileReactorController");
         	GameRegistry.registerTileEntity(TileEnergyAutomaticCarger.class, "tileEnergyAutomaticCharger");
+        	GameRegistry.registerTileEntity(TileNetworkSwitch.class, "tileNetworkSwitch");
         	GameRegistry.registerItem(partItem, "partItem");
         	GameRegistry.registerItem(energyCell, "energyCell");
     	}
