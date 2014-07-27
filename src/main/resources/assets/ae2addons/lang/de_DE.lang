@@ -14,6 +14,7 @@ tile.ae2addons.reactorcontroller.name=ME-Reaktorkontroller
 tile.ae2addons.reactor.base.name=ME-Reaktor
 tile.ae2addons.carger.name=Automatischer Lader
 tile.extrastuff.solarfurnace.idle.name=Solar Ofen
+tile.extrastuff.networkswitch.name=ME-Network-Switch
 
 //Items
 item.extrastuff.chestholder.name=Kisten halter

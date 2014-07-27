@@ -41,7 +41,11 @@ public class GrindReactorBlockBase implements IGridBlock{
     @Optional.Method(modid = "appliedenergistics2")
     @Override
     public EnumSet<GridFlags> getFlags() {
-        return EnumSet.of(GridFlags.TIER_2_CAPACITY);
+    	try{
+			return EnumSet.of(Enum.valueOf(GridFlags.class, "TIER_2_CAPACITY"));
+		}catch(Exception e){
+			return EnumSet.of(Enum.valueOf(GridFlags.class, "DENSE_CAPACITY"));
+		}
     }
 
     @Optional.Method(modid = "appliedenergistics2")

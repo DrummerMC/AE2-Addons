@@ -29,6 +29,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Loader;
@@ -138,6 +139,10 @@ public class Extra_Stuff
         	GameRegistry.registerTileEntity(TileNetworkSwitch.class, "tileNetworkSwitch");
         	GameRegistry.registerItem(partItem, "partItem");
         	GameRegistry.registerItem(energyCell, "energyCell");
+        	
+        	ItemStack controler = AEApi.instance().blocks().blockController.stack(1);
+        	GameRegistry.addShapelessRecipe(new ItemStack(networkSwitch), controler, AEApi.instance().materials().materialLogicProcessor.stack(1));
+        	
     	}
     	
     }

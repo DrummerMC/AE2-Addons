@@ -35,7 +35,12 @@ public class GridBlockNetworkSwitch implements IGridBlock {
 	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public EnumSet<GridFlags> getFlags() {
-		return EnumSet.of(GridFlags.TIER_2_CAPACITY, GridFlags.REQUIRE_CHANNEL, GridFlags.CANNOT_CARRY);
+		try{
+			return EnumSet.of(Enum.valueOf(GridFlags.class, "TIER_2_CAPACITY"), GridFlags.REQUIRE_CHANNEL, GridFlags.CANNOT_CARRY);
+		}catch(Exception e){
+			return EnumSet.of(Enum.valueOf(GridFlags.class, "DENSE_CAPACITY"), GridFlags.REQUIRE_CHANNEL, GridFlags.CANNOT_CARRY);
+		}
+		
 	}
 
 	@Optional.Method(modid = "appliedenergistics2")

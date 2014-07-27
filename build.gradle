@@ -17,7 +17,7 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.7.2-0.0.1." + getBuildNumber()
+version = "1.7.x-0.0.1." + getBuildNumber()
 group= "com.DrummerMC.ae2_addons" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Extra-Stuff"
 
@@ -93,5 +93,5 @@ def getBuildNumber() {
     else if ("$System.env.BUILD_NUMBER" != "null"){
         return "ci."+"$System.env.BUILD_NUMBER"
     }
-    return "2"
+    return "5"
 }

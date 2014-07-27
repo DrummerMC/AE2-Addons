@@ -15,7 +15,7 @@ public class BlockNetworkSwitch extends BlockContainer {
 	public BlockNetworkSwitch() {
 		super(Material.iron);
 		this.setBlockName("extrastuff.networkswitch");
-		this.setBlockTextureName("extrastuff:switch");
+		this.setBlockTextureName("extrastuff:networkswitch");
 		this.setHardness(0.3F);
 	}
 
