@@ -11,6 +11,7 @@ import DrummerMC.Extra_Stuff.Block.Reactor.ReactorBase;
 import DrummerMC.Extra_Stuff.Item.ChestHolder;
 import DrummerMC.Extra_Stuff.Item.EnergyCell;
 import DrummerMC.Extra_Stuff.Item.ItemBlockNormal;
+import DrummerMC.Extra_Stuff.Item.ItemSheld;
 import DrummerMC.Extra_Stuff.Parts.PartItem;
 import DrummerMC.Extra_Stuff.StorageEnergy.EnergyStorageGrid;
 import DrummerMC.Extra_Stuff.Tile.TileEnergyAutomaticCarger;
@@ -67,6 +68,8 @@ public class Extra_Stuff
     public static Item partItem;
     public static EnergyCell energyCell;
     
+    public static Item sheld;
+    
     private MultiblockEventHandler multiblockEventHandler;
     
     public static NetworkHandler network;
@@ -81,9 +84,9 @@ public class Extra_Stuff
     
     @EventHandler
     public void preinit(FMLPreInitializationEvent event){
-    	System.err.println("test");
     	chestHolder = new ChestHolder();
     	GameRegistry.registerItem(chestHolder, "chestHolder");
+    	
     	
     	
     	API.instance = new APIInstance();
@@ -96,6 +99,10 @@ public class Extra_Stuff
 			}
     	    
     	};
+    	sheld = new ItemSheld().setCreativeTab(tab).setUnlocalizedName("extrastuff.sheld");
+    	GameRegistry.registerItem(sheld, "sheld");
+    	
+    	
     	this.solarFurnaceBurn = new BlockSolarFurnace(true).setHardness(3.5F).setStepSound(Block.soundTypePiston).setBlockName("extrastuff.solarfurnace.burn");
     	this.solarFurnaceIdle = new BlockSolarFurnace(false).setHardness(3.5F).setStepSound(Block.soundTypePiston).setBlockName("extrastuff.solarfurnace.idle").setCreativeTab(tab);
     	GameRegistry.registerBlock(solarFurnaceBurn, "solarfurnaceburn");
@@ -157,5 +164,6 @@ public class Extra_Stuff
 	public void registerServer(FMLServerAboutToStartEvent evt) {
 		multiblockEventHandler = new MultiblockEventHandler();
 		MinecraftForge.EVENT_BUS.register(multiblockEventHandler);
+		MinecraftForge.EVENT_BUS.register(new HurtEvent());
 	}
 }
