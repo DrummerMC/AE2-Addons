@@ -4,6 +4,7 @@ import appeng.api.AEApi;
 import appeng.api.parts.IPartItem;
 import DrummerMC.Extra_Stuff.Api.Grid.IEnergyStorageGrid;
 import DrummerMC.Extra_Stuff.Block.BlockAENormal;
+import DrummerMC.Extra_Stuff.Block.BlockFluidExporter;
 import DrummerMC.Extra_Stuff.Block.BlockNetworkSwitch;
 import DrummerMC.Extra_Stuff.Block.BlockSolarFurnace;
 import DrummerMC.Extra_Stuff.Block.Reactor.BlockReactorController;
@@ -15,6 +16,7 @@ import DrummerMC.Extra_Stuff.Item.ItemSheld;
 import DrummerMC.Extra_Stuff.Parts.PartItem;
 import DrummerMC.Extra_Stuff.StorageEnergy.EnergyStorageGrid;
 import DrummerMC.Extra_Stuff.Tile.TileEnergyAutomaticCarger;
+import DrummerMC.Extra_Stuff.Tile.TileFluidExporter;
 import DrummerMC.Extra_Stuff.Tile.TileNetworkSwitch;
 import DrummerMC.Extra_Stuff.Tile.TileSolarFurnace;
 import DrummerMC.Extra_Stuff.Tile.Reactor.TileReactorBase;
@@ -31,6 +33,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.chunk.storage.ChunkLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.Loader;
@@ -150,6 +153,18 @@ public class Extra_Stuff
         	ItemStack controler = AEApi.instance().blocks().blockController.stack(1);
         	GameRegistry.addShapelessRecipe(new ItemStack(networkSwitch), controler, AEApi.instance().materials().materialLogicProcessor.stack(1));
         	
+    	}
+    	
+    	if(Loader.isModLoaded("OpenComputers")){
+    		Block b = new BlockFluidExporter().setCreativeTab(tab);
+    		GameRegistry.registerBlock(b, "fluideEporter");
+    		GameRegistry.registerTileEntity(TileFluidExporter.class, "tileFluidExporter");
+    		if(Loader.isModLoaded("BuildCraft|Factory")){
+    			GameRegistry.addShapelessRecipe(new ItemStack(b), GameRegistry.findBlock("BuildCraft|Factory", "tankBlock"), Items.gold_ingot, Items.iron_ingot);
+    		}else{
+    			GameRegistry.addShapelessRecipe(new ItemStack(b), Blocks.glass, Blocks.glass, Blocks.glass, Blocks.glass, Items.iron_ingot,Items.gold_ingot);
+    		}
+    		
     	}
     	
     }

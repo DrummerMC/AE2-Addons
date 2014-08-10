@@ -80,7 +80,6 @@ public class TileReactorController extends TileEntity implements IGridHost {
 		return new ItemStack(Extra_Stuff.reactorController);
 	}
 	
-	@Optional.Method(modid = "appliedenergistics2")
 	@Override
 	public Packet getDescriptionPacket() {
 		NBTTagCompound packetData = new NBTTagCompound();
